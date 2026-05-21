@@ -1,0 +1,12 @@
+# Dependencias
+node_modules/
+dist/
+.angular/
+
+# Entorno y logs
+.env
+*.log
+
+# Editores
+.vscode/
+.DS_Store
