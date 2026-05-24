@@ -1,0 +1,56 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div>
+      <h1>Mis Vacantes Publicadas</h1>
+      <p class="subtitle">Panel de Gestión de Reclutamiento — UCABConnect</p>
+    </div>
+    <button class="btn-add" (click)="navegarAPublicar()">➕ Publicar Nueva Vacante</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="vacantes-table">
+      <thead>
+        <tr>
+          <th>Título de la Oferta</th>
+          <th>Sector</th>
+          <th>Modalidad / Duración</th>
+          <th>Salario</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vacante of listaVacantes" [className]="vacante.estado === 'Cerrada' ? 'row-disabled' : ''">
+          <td>
+            <div class="title-cell">
+              <span class="vacante-title">{{ vacante.titulo }}</span>
+              <span class="vacante-location">📍 {{ vacante.ubicacion }}</span>
+            </div>
+          </td>
+          <td>{{ vacante.sector }}</td>
+          <td>
+            <div class="info-cell">
+              <span>{{ vacante.modalidad }}</span>
+              <small>{{ vacante.duracion }}</small>
+            </div>
+          </td>
+          <td class="salary-text">{{ vacante.salario }}</td>
+          <td>
+            <span class="badge" [ngClass]="vacante.estado === 'Activa' ? 'badge-active' : 'badge-closed'">
+              {{ vacante.estado }}
+            </span>
+          </td>
+          <td>
+            <button 
+              *ngIf="vacante.estado === 'Activa'" 
+              class="btn-action-close" 
+              (click)="cerrarOferta(vacante)">
+              🚫 Cerrar
+            </button>
+            <span *ngIf="vacante.estado === 'Cerrada'" class="text-muted">Ninguna disponible</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
