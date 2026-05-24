@@ -1,12 +1,52 @@
-# Dependencias
+# =========================
+# Dependencias (Frontend y Backend)
+# =========================
 node_modules/
-dist/
+
+# =========================
+# Frontend: Angular
+# =========================
+# Carpetas de compilación
+/dist/
+/tmp/
+/out-tsc/
+/bazel-out/
+
+# Caché de Angular
 .angular/
 
-# Entorno y logs
-.env
-*.log
+# Reportes de pruebas (Tests)
+/coverage/
 
-# Editores
+# =========================
+# Backend: JavaScript (Node.js)
+# =========================
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example
+
+# Logs y registro de errores
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# Entorno de Desarrollo (Visual Studio y VS Code)
+# =========================
 .vscode/
+.vs/
+*.suo
+*.user
+*.sln
+
+# =========================
+# Sistema Operativo
+# =========================
 .DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
