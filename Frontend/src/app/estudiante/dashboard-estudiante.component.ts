@@ -14,7 +14,13 @@ export class DashboardEstudianteComponent {
   // Arreglo vacío a la espera de los datos del backend
   pasantias: any[] = []; 
 
+  showAvisosModal: boolean = false;
+
   setTab(tab: string) {
     this.activeTab = tab;
+  }
+
+  toggleAvisos() {  // Función para abrir y cerrar el modal
+    this.showAvisosModal = !this.showAvisosModal;
   }
 }

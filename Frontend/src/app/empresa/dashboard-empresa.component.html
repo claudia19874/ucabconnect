@@ -1,8 +1,8 @@
 <div class="dashboard-container">
   <header class="header">
-    <div class="logo-area">
-      <div class="logo-icon">UCAB</div>
-      <div>
+    <div class="brand-section">
+      <img src="/logoucab.png" alt="Logo UCAB" class="logo-img">
+      <div class="brand-text">
         <h1>UCAB Connect</h1>
         <span>Panel de Empresa</span>
       </div>
@@ -61,4 +61,57 @@
       </div>
     </div>
   </main>
+
+  <main class="content" *ngIf="activeTab === 'notificaciones'">
+    
+    <div class="section-header-card">
+      <div class="section-info">
+        <h2>Gestión de Notificaciones</h2>
+        <p>Crea y administra notificaciones que verán todos los estudiantes</p>
+      </div>
+      <button class="btn-primary" (click)="abrirModalNotificacion()">+ Crear notificación</button>
+    </div>
+
+    <div class="list-container">
+      <h3 class="list-title">Notificaciones Publicadas ({{ notificacionesPublicadas }})</h3>
+      
+      <div class="empty-state">
+        <div class="empty-icon">🔔</div>
+        <h3>No hay notificaciones publicadas</h3>
+        <p>Las notificaciones que crees aparecerán aquí y serán visibles para todos los estudiantes</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-overlay" *ngIf="showCrearNotificacionModal">
+    <div class="modal-content form-modal">
+      <div class="modal-header">
+        <h2>Crear Nueva Notificación</h2>
+        <button class="btn-close" (click)="cerrarModalNotificacion()">✕</button>
+      </div>
+      
+      <div class="info-alert">
+        <strong>Información:</strong> Esta notificación será visible para todos los estudiantes en su bandeja de avisos. Úsala para comunicar información importante sobre pasantías, eventos o cambios relevantes.
+      </div>
+
+      <form class="notification-form">
+        <div class="form-group">
+          <label>Título de la notificación *</label>
+          <input type="text" placeholder="Ej: Nuevas fechas para entrevistas">
+          <small>Máximo 100 caracteres</small>
+        </div>
+
+        <div class="form-group">
+          <label>Mensaje *</label>
+          <textarea rows="6" placeholder="Escribe el contenido de la notificación..."></textarea>
+          <small>Máximo 500 caracteres</small>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-primary full-width" (click)="cerrarModalNotificacion()">➤ Publicar Notificación</button>
+          <button type="button" class="btn-outline outline-secondary" (click)="cerrarModalNotificacion()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
