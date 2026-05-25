@@ -31,6 +31,33 @@
   margin-bottom: 15px;
 }
 
+.btn-group-toggle {
+  display: flex;
+  background-color: #f1f3f4; 
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 18px; 
+  border: 1px solid #dadce0; 
+}
+
+.btn-group-toggle button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 800;
+  color: #3c4043;
+  transition: all 0.2s ease;
+}
+
+.btn-group-toggle button.active {
+  background-color: #0548f2; 
+  color: white;
+  box-shadow: 0 2px 5px rgba(5, 90, 242, 0.3);
+}
+
 .header h1 {
   font-size: 24px;
   color: #1a1a1a;
