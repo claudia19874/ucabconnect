@@ -76,4 +76,169 @@
       </div>
     </div>
   </main>
+
+<main class="profile-content" *ngIf="activeTab === 'perfil'">
+
+  <div class="profile-card">
+
+    <div class="profile-header">
+
+      <div class="avatar">
+        JP
+      </div>
+
+      <div class="profile-info">
+        <h2>{{ usuario.nombre }}</h2>
+        <p>{{ usuario.email }}</p>
+        <span>{{ usuario.cedula }}</span>
+      </div>
+
+    </div>
+
+    <!-- Información académica -->
+    <div class="academic-section">
+
+      <h3>Información Académica</h3>
+
+      <div class="academic-grid">
+
+        <div class="academic-item">
+          <label>Carrera</label>
+          <p>{{ usuario.carrera }}</p>
+        </div>
+
+        <div class="academic-item">
+          <label>Semestre</label>
+          <p>{{ usuario.semestre }}</p>
+        </div>
+
+        <div class="academic-item">
+          <label>Sede</label>
+          <p>{{ usuario.sede }}</p>
+        </div>
+
+        <div class="academic-item">
+          <label>Teléfono</label>
+          <p>{{ usuario.telefono }}</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Habilidades -->
+    <div class="skills-section">
+
+      <h3>Habilidades</h3>
+
+      <span class="skill-pill" *ngFor="let habilidad of usuario.habilidades">
+        {{ habilidad }}
+      </span>
+
+    </div>
+
+    <!-- Botón -->
+    <button class="edit-profile-btn" (click)="abrirEditarPerfil()">
+      Editar Perfil
+    </button>
+
+  </div>
+
+</main>
+
+<!-- MODAL EDITAR PERFIL -->
+<div
+  class="modal-overlay"
+  *ngIf="showEditModal"
+>
+
+  <div class="edit-modal">
+
+    <div class="edit-header">
+
+      <h2>Editar Perfil</h2>
+
+      <button
+        class="close-btn"
+        (click)="cerrarEditarPerfil()"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <div class="edit-form">
+
+      <div class="form-group">
+        <label>Nombre completo</label>
+
+        <input
+          type="text"
+          [(ngModel)]="editUsuario.nombre"
+        >
+      </div>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label>Teléfono</label>
+
+          <input
+            type="text"
+            [(ngModel)]="editUsuario.telefono"
+          >
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Semestre</label>
+
+          <input
+            type="text"
+            [(ngModel)]="editUsuario.semestre"
+          >
+
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Habilidades (separadas por comas)
+        </label>
+
+        <input
+          type="text"
+          [ngModel]="editUsuario.habilidades.join(', ')"
+          (ngModelChange)="editUsuario.habilidades = $event"
+        >
+
+      </div>
+
+    </div>
+
+    <div class="edit-footer">
+
+      <button
+        class="save-btn"
+        (click)="guardarCambios()"
+      >
+        Guardar Cambios
+      </button>
+
+      <button
+        class="cancel-btn"
+        (click)="cerrarEditarPerfil()"
+      >
+        Cancelar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 </div>
