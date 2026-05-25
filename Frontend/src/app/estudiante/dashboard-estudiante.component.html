@@ -1,0 +1,51 @@
+<div class="dashboard-container">
+  <header class="header">
+    <div class="logo-area">
+      <div class="logo-icon">UCAB</div>
+      <div>
+        <h1>UCAB Connect</h1>
+        <span>Panel de Estudiante</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-text">Avisos</button>
+      <button class="btn-text">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <nav class="nav-tabs">
+    <button [class.active]="activeTab === 'explorar'" (click)="setTab('explorar')">Explorar Pasantías</button>
+    <button [class.active]="activeTab === 'aplicaciones'" (click)="setTab('aplicaciones')">Mis Aplicaciones</button>
+    <button [class.active]="activeTab === 'perfil'" (click)="setTab('perfil')">Mi Perfil</button>
+  </nav>
+
+  <main class="content" *ngIf="activeTab === 'explorar'">
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar pasantías por título o empresa...">
+      <button class="btn-filter">Filtros</button>
+    </div>
+
+    <div class="job-list">
+      <div class="job-card" *ngFor="let job of pasantias">
+        <div class="job-header">
+          <div class="job-info">
+            <h2>{{ job.titulo }}</h2>
+            <p class="company">{{ job.empresa }}</p>
+            <div class="job-meta">
+              <span>📍 {{ job.ubicacion }}</span>
+              <span>💰 {{ job.salario }}</span>
+              <span>⏱ {{ job.duracion }}</span>
+              <span class="badge-modality">{{ job.modalidad }}</span>
+            </div>
+          </div>
+          <button class="btn-primary" *ngIf="!job.aplicado">Aplicar</button>
+          <button class="btn-success" *ngIf="job.aplicado">✓ Aplicado</button>
+        </div>
+        <p class="job-desc">{{ job.descripcion }}</p>
+        <div class="tags">
+          <span class="tag" *ngFor="let tech of job.tecnologias">{{ tech }}</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

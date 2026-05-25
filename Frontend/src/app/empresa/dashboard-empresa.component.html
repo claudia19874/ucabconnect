@@ -1,0 +1,64 @@
+<div class="dashboard-container">
+  <header class="header">
+    <div class="logo-area">
+      <div class="logo-icon">UCAB</div>
+      <div>
+        <h1>UCAB Connect</h1>
+        <span>Panel de Empresa</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-text">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <nav class="nav-tabs">
+    <button [class.active]="activeTab === 'ofertas'" (click)="setTab('ofertas')">Mis Ofertas</button>
+    <button [class.active]="activeTab === 'aplicaciones'" (click)="setTab('aplicaciones')">Aplicaciones</button>
+    <button [class.active]="activeTab === 'notificaciones'" (click)="setTab('notificaciones')">Notificaciones</button>
+    <button [class.active]="activeTab === 'configuracion'" (click)="setTab('configuracion')">Configuración</button>
+  </nav>
+
+  <main class="content" *ngIf="activeTab === 'ofertas'">
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <p>Ofertas Activas</p>
+        <h3>{{ ofertasActivas }}</h3>
+      </div>
+      <div class="stat-card">
+        <p>Total Aplicaciones</p>
+        <h3>{{ totalAplicaciones }}</h3>
+      </div>
+      <div class="stat-card">
+        <p>Ofertas Cerradas</p>
+        <h3>{{ ofertasCerradas }}</h3>
+      </div>
+    </div>
+
+    <button class="btn-primary btn-publish">+ Publicar nueva oferta</button>
+
+    <div class="job-list">
+      <div class="job-card" *ngFor="let oferta of ofertas">
+        <div class="job-header">
+          <div class="job-info">
+            <h2>{{ oferta.titulo }}</h2>
+            <div class="job-meta">
+              <span>📍 {{ oferta.ubicacion }}</span>
+              <span>💰 {{ oferta.salario }}</span>
+              <span>⏱ {{ oferta.duracion }}</span>
+              <span class="badge-modality">{{ oferta.modalidad }}</span>
+            </div>
+            <p class="applications-count">👥 {{ oferta.aplicaciones }} aplicaciones recibidas</p>
+          </div>
+          <div class="actions-group">
+            <span class="status-badge" [ngClass]="{'active': oferta.estado === 'Activa', 'closed': oferta.estado === 'Cerrada'}">{{ oferta.estado }}</span>
+            <button class="btn-outline">👁 Ver</button>
+            <button class="btn-outline text-warning" *ngIf="oferta.estado === 'Activa'">⊗ Cerrar</button>
+            <button class="btn-outline text-danger">🗑 Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

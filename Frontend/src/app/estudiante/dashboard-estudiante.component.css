@@ -1,0 +1,29 @@
+.dashboard-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+.header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.logo-area { display: flex; align-items: center; gap: 15px; }
+.logo-icon { background: #0548f2; color: white; padding: 10px; border-radius: 8px; font-weight: bold; }
+.logo-area h1 { font-size: 1.2rem; margin: 0; }
+.logo-area span { font-size: 0.85rem; color: #6B7280; }
+.header-actions { display: flex; gap: 15px; }
+.btn-text { background: none; border: none; cursor: pointer; color: #4B5563; font-weight: 500; }
+
+.nav-tabs { display: flex; background: white; margin-top: 20px; border-radius: 8px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); justify-content: space-around; }
+.nav-tabs button { flex: 1; padding: 12px; border: none; background: none; cursor: pointer; border-radius: 6px; font-weight: 600; color: #6B7280; transition: 0.3s; }
+.nav-tabs button.active { background: #0548f2; color: white; }
+
+.content { margin-top: 20px; }
+.search-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+.search-bar input { flex: 1; padding: 12px; border: 1px solid #E5E7EB; border-radius: 8px; }
+.btn-filter { padding: 12px 20px; border: 1px solid #E5E7EB; background: white; border-radius: 8px; cursor: pointer; }
+
+.job-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 15px; border: 1px solid #E5E7EB; }
+.job-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.job-info h2 { font-size: 1.2rem; margin-bottom: 5px; }
+.company { color: #0548f2; font-weight: 600; margin-bottom: 10px; font-size: 0.9rem; }
+.job-meta { display: flex; gap: 15px; font-size: 0.85rem; color: #6B7280; margin-bottom: 15px; align-items: center; }
+.badge-modality { background: #E0E7FF; color: #0548f2; padding: 4px 8px; border-radius: 4px; font-weight: 600; }
+.btn-primary { background: #0548f2; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.btn-success { background: #D1FAE5; color: #059669; padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold; }
+.job-desc { font-size: 0.9rem; color: #4B5563; margin-bottom: 15px; }
+.tags { display: flex; gap: 10px; }
+.tag { background: #F3F4F6; color: #374151; padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; }
