@@ -19,7 +19,19 @@ export class DashboardEmpresaComponent {
   // Arreglo vacío a la espera de los datos del backend
   ofertas: any[] = [];
 
+  // Variables para la épica de Notificaciones
+  showCrearNotificacionModal: boolean = false;
+  notificacionesPublicadas: number = 0;
+
   setTab(tab: string) {
     this.activeTab = tab;
+  }
+
+  abrirModalNotificacion() {
+    this.showCrearNotificacionModal = true;
+  }
+
+  cerrarModalNotificacion() {
+    this.showCrearNotificacionModal = false;
   }
 }
