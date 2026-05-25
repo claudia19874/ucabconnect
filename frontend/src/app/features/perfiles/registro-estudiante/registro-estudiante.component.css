@@ -23,7 +23,7 @@
 }
 
 .back-link {
-  color: #6805F2;
+  color: #0548f2;
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
@@ -52,7 +52,7 @@ fieldset {
 legend {
   font-size: 16px;
   font-weight: 700;
-  color: #6805F2;
+  color: #0548f2;
   margin-bottom: 15px;
   padding: 0;
   width: 100%;
@@ -94,7 +94,7 @@ input, select, textarea {
 }
 
 input:focus, select:focus, textarea:focus {
-  border-color: #6805F2;
+  border-color: #0548f2;
   background-color: #fff;
   box-shadow: 0 0 0 3px rgba(114, 9, 183, 0.1);
 }
@@ -105,7 +105,7 @@ textarea {
 
 .btn-submit {
   width: 100%;
-  background-color: #6805F2;
+  background-color: #0548f2;
   color: white;
   border: none;
   padding: 14px;
@@ -119,10 +119,10 @@ textarea {
 }
 
 .btn-submit:hover {
-  background-color: #6805F2;
+  background-color: #0548f2;
 }
 
-/* Adaptación rápida para pantallas pequeñas */
+/* Adaptación para pantallas pequeñas */
 @media (max-width: 500px) {
   .form-grid {
     flex-direction: column;
