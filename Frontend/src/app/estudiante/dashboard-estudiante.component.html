@@ -1,0 +1,81 @@
+<div class="dashboard-container">
+  <header class="header">
+    <div class="brand-section">
+      <img src="/logoucab.png" alt="Logo UCAB" class="logo-img">
+      <div class="brand-text">
+        <h1>UCAB Connect</h1>
+        <span>Panel de Estudiante</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-text" (click)="toggleAvisos()"> Notificaciones</button>
+      <button class="btn-text">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <nav class="nav-tabs">
+    <button [class.active]="activeTab === 'explorar'" (click)="setTab('explorar')">Explorar Pasantías</button>
+    <button [class.active]="activeTab === 'aplicaciones'" (click)="setTab('aplicaciones')">Mis Aplicaciones</button>
+    <button [class.active]="activeTab === 'perfil'" (click)="setTab('perfil')">Mi Perfil</button>
+  </nav>
+
+  <main class="content" *ngIf="activeTab === 'explorar'">
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar pasantías por título o empresa...">
+      <button class="btn-filter">Filtros</button>
+    </div>
+
+    <div class="job-list">
+      <div class="job-card" *ngFor="let job of pasantias">
+        <div class="job-header">
+          <div class="job-info">
+            <h2>{{ job.titulo }}</h2>
+            <p class="company">{{ job.empresa }}</p>
+            <div class="job-meta">
+              <span>📍 {{ job.ubicacion }}</span>
+              <span>💰 {{ job.salario }}</span>
+              <span>⏱ {{ job.duracion }}</span>
+              <span class="badge-modality">{{ job.modalidad }}</span>
+            </div>
+          </div>
+          <button class="btn-primary" *ngIf="!job.aplicado">Aplicar</button>
+          <button class="btn-success" *ngIf="job.aplicado">✓ Aplicado</button>
+        </div>
+        <p class="job-desc">{{ job.descripcion }}</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-overlay" *ngIf="showAvisosModal">
+    <div class="modal-content avisos-modal">
+      <div class="modal-header">
+        <h2> Notificaciones</h2>
+        <button class="btn-close" (click)="toggleAvisos()">✕</button>
+      </div>
+      
+      <div class="avisos-filters">
+        <button class="btn-filter-pill active">
+          Todos ({{ notificaciones.length }})
+        </button>
+      </div>
+
+      <div class="avisos-lista">
+        <div class="empty-state" *ngIf="notificaciones.length === 0">
+          <div class="empty-icon">📭</div>
+          <h3>No hay notificaciones</h3>
+          <p>Las empresas aún no han publicado avisos.</p>
+        </div>
+
+        <div class="aviso-card" *ngFor="let aviso of notificaciones">
+          <h3 class="aviso-title">{{ aviso.titulo }}</h3>
+          <p class="aviso-message">{{ aviso.mensaje }}</p>
+          <small class="aviso-meta">📅 {{ aviso.fecha | date:'short' }} • Empresa: {{ aviso.empresaId }}</small>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-primary full-width" (click)="toggleAvisos()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="dashboard-container">
+  <header class="header">
+    <div class="brand-section">
+      <img src="/logoucab.png" alt="Logo UCAB" class="logo-img">
+      <div class="brand-text">
+        <h1>UCAB Connect</h1>
+        <span>Panel de Empresa</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-text">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <nav class="nav-tabs">
+    <button [class.active]="activeTab === 'ofertas'" (click)="setTab('ofertas')">Mis Ofertas</button>
+    <button [class.active]="activeTab === 'aplicaciones'" (click)="setTab('aplicaciones')">Aplicaciones</button>
+    <button [class.active]="activeTab === 'notificaciones'" (click)="setTab('notificaciones')">Notificaciones</button>
+    <button [class.active]="activeTab === 'configuracion'" (click)="setTab('configuracion')">Configuración</button>
+  </nav>
+
+  <main class="content" *ngIf="activeTab === 'ofertas'">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <p>Ofertas Activas</p>
+        <h3>{{ ofertasActivas }}</h3>
+      </div>
+      <div class="stat-card">
+        <p>Total Aplicaciones</p>
+        <h3>{{ totalAplicaciones }}</h3>
+      </div>
+      <div class="stat-card">
+        <p>Ofertas Cerradas</p>
+        <h3>{{ ofertasCerradas }}</h3>
+      </div>
+    </div>
+  </main>
+
+  <main class="content" *ngIf="activeTab === 'notificaciones'">
+    <div class="section-header-card">
+      <div class="section-info">
+        <h2>Gestión de Notificaciones ({{ notificacionesPublicadas }})</h2>
+        <p>Crea y administra notificaciones que verán todos los estudiantes</p>
+      </div>
+      <button class="btn-primary" (click)="abrirModalNotificacion()">+ Crear Notificación</button>
+    </div>
+
+    <div class="notificaciones-panel-lista">
+      <div class="empty-state" *ngIf="notificaciones.length === 0">
+        <div class="empty-icon">📢</div>
+        <h3>No has publicado notificaciones</h3>
+        <p>Las notificaciones que crees aparecerán aquí y serán visibles para todos los estudiantes en tiempo real.</p>
+      </div>
+
+      <div class="empresa-aviso-card" *ngFor="let aviso of notificaciones">
+        <div class="aviso-contenido">
+          <h3 class="aviso-titulo-texto">{{ aviso.titulo }}</h3>
+          <p class="aviso-cuerpo-texto">{{ aviso.mensaje }}</p>
+          <small class="aviso-fecha-texto">📅 Publicado el: {{ aviso.fecha | date:'short' }}</small>
+        </div>
+        <button class="btn-delete-aviso" (click)="eliminarNotificacion(aviso.id)">
+          🗑 Eliminar aviso
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-overlay" *ngIf="showCrearNotificacionModal">
+    <div class="modal-content form-modal">
+      <div class="modal-header">
+        <h2>Crear Nueva Notificación</h2>
+        <button class="btn-close" (click)="cerrarModalNotificacion()">✕</button>
+      </div>
+      
+      <div class="info-alert">
+        <strong>Información:</strong> Esta notificación será visible para todos los estudiantes en su bandeja de avisos.
+      </div>
+
+      <form class="notification-form">
+        <div class="form-group">
+          <label>Título de la notificación *</label>
+          <input type="text" #tituloInput placeholder="Ej: Nuevas fechas para entrevistas">
+          <small>Máximo 100 caracteres</small>
+        </div>
+
+        <div class="form-group">
+          <label>Mensaje *</label>
+          <textarea rows="6" #mensajeInput placeholder="Escribe el contenido de la notificación..."></textarea>
+          <small>Máximo 500 caracteres</small>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-primary full-width" (click)="publicarNotificacion(tituloInput.value, mensajeInput.value); tituloInput.value=''; mensajeInput.value=''">➤ Publicar Notificación</button>
+          <button type="button" class="btn-outline outline-secondary" (click)="cerrarModalNotificacion()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
