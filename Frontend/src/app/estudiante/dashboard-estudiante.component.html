@@ -11,34 +11,6 @@
       <button class="btn-text" (click)="toggleAvisos()"> Notificaciones</button>
       <button class="btn-text">Cerrar sesión</button>
     </div>
-    <div class="modal-overlay" *ngIf="showAvisosModal">
-    <div class="modal-content avisos-modal">
-      <div class="modal-header">
-        <h2> Notificaciones</h2>
-        <button class="btn-close" (click)="toggleAvisos()">✕</button>
-      </div>
-      
-      <div class="avisos-filters">
-        <button class="btn-filter-pill active">Todos (0)</button>
-        <button class="btn-filter-pill">Sin leer (0)</button>
-        <button class="btn-filter-pill">Favoritos (0)</button>
-      </div>
-      
-      <div class="avisos-actions">
-        <span class="text-muted">Limpiar leídos</span> <span class="divider">|</span> <span class="text-danger">Limpiar todos</span>
-      </div>
-
-      <div class="empty-state">
-        <div class="empty-icon"></div>
-        <h3>No hay notificaciones</h3>
-        <p>Las notificaciones de nuevas pasantías aparecerán aquí</p>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn-primary full-width" (click)="toggleAvisos()">Cerrar</button>
-      </div>
-    </div>
-  </div>
   </header>
 
   <nav class="nav-tabs">
@@ -70,10 +42,40 @@
           <button class="btn-success" *ngIf="job.aplicado">✓ Aplicado</button>
         </div>
         <p class="job-desc">{{ job.descripcion }}</p>
-        <div class="tags">
-          <span class="tag" *ngFor="let tech of job.tecnologias">{{ tech }}</span>
-        </div>
       </div>
     </div>
   </main>
+
+  <div class="modal-overlay" *ngIf="showAvisosModal">
+    <div class="modal-content avisos-modal">
+      <div class="modal-header">
+        <h2> Notificaciones</h2>
+        <button class="btn-close" (click)="toggleAvisos()">✕</button>
+      </div>
+      
+      <div class="avisos-filters">
+        <button class="btn-filter-pill active">
+          Todos ({{ notificaciones.length }})
+        </button>
+      </div>
+
+      <div class="avisos-lista">
+        <div class="empty-state" *ngIf="notificaciones.length === 0">
+          <div class="empty-icon">📭</div>
+          <h3>No hay notificaciones</h3>
+          <p>Las empresas aún no han publicado avisos.</p>
+        </div>
+
+        <div class="aviso-card" *ngFor="let aviso of notificaciones">
+          <h3 class="aviso-title">{{ aviso.titulo }}</h3>
+          <p class="aviso-message">{{ aviso.mensaje }}</p>
+          <small class="aviso-meta">📅 {{ aviso.fecha | date:'short' }} • Empresa: {{ aviso.empresaId }}</small>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-primary full-width" (click)="toggleAvisos()">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>

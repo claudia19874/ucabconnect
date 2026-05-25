@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,17 +10,35 @@ import { CommonModule } from '@angular/common';
 })
 export class DashboardEstudianteComponent {
   activeTab = 'explorar'; 
-
-  // Arreglo vacío a la espera de los datos del backend
   pasantias: any[] = []; 
-
+  
   showAvisosModal: boolean = false;
+  notificaciones: any[] = []; 
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   setTab(tab: string) {
     this.activeTab = tab;
+    this.cdr.detectChanges();
   }
 
-  toggleAvisos() {  // Función para abrir y cerrar el modal
+  toggleAvisos() {  
     this.showAvisosModal = !this.showAvisosModal;
+    if (this.showAvisosModal) {
+      this.cargarNotificaciones();
+    }
+    this.cdr.detectChanges();
+  }
+
+  async cargarNotificaciones() {
+    try {
+      const respuesta = await fetch('http://localhost:3000/api/notificaciones');
+      if (respuesta.ok) {
+        this.notificaciones = await respuesta.json();
+        this.cdr.detectChanges();
+      }
+    } catch (error) {
+      console.error("Error al cargar notificaciones:", error);
+    }
   }
 }
