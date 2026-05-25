@@ -1,0 +1,98 @@
+<div class="registro-container">
+  <div class="registro-card">
+    
+    <div class="header">
+      <a routerLink="/login" class="back-link">← Volver a iniciar sesión</a>
+      <h1>Registro de Organización / Empresa</h1>
+      <p>Registra tu empresa en UCAB Connect para captar talento calificado</p>
+    </div>
+
+    <form (ngSubmit)="onRegistroEmpresa()" #registroForm="ngForm">
+      
+      <fieldset>
+        <legend>Identificación Fiscal y Legal</legend>
+        
+        <div class="form-group">
+          <label>Razón Social (Nombre de la Empresa)</label>
+          <input type="text" [(ngModel)]="empresa.razonSocial" name="razonSocial" placeholder="Ej. Valmy C.A." required>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>RIF de la Empresa</label>
+            <input type="text" [(ngModel)]="empresa.rif" name="rif" placeholder="J-00000000-0" required>
+          </div>
+          <div class="form-group">
+            <label>Sector / Área de Negocio</label>
+            <select [(ngModel)]="empresa.sector" name="sector" required>
+              <option value="" disabled selected>Selecciona un sector</option>
+              <option value="Tecnología / Software">Tecnología / Software</option>
+              <option value="Banca / Finanzas">Banca / Finanzas</option>
+              <option value="Telecomunicaciones">Telecomunicaciones</option>
+              <option value="Manufactura / Cosméticos">Manufactura / Cosméticos</option>
+              <option value="Consultoría / Auditoría">Consultoría / Auditoría</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Credenciales de Acceso</legend>
+        
+        <div class="form-group">
+          <label>Correo Electrónico Corporativo</label>
+          <input type="email" [(ngModel)]="empresa.correoCorporativo" name="correo" placeholder="ejemplo@empresa.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>Contraseña del Portal</label>
+          <input type="password" [(ngModel)]="empresa.contrasena" name="contrasena" placeholder="Mínimo 8 caracteres corporativos" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Seguridad Institucional</legend>
+        
+        <div class="form-group">
+          <label>Código de Acceso Predeterminado</label>
+          <input 
+            type="text" 
+            [(ngModel)]="empresa.codigoAcceso" 
+            name="codigoAcceso" 
+            placeholder="" 
+            required
+            pattern="\d{12}"
+            maxlength="12"
+            #codigoInput="ngModel">
+          
+          <small *ngIf="codigoInput.errors?.['pattern'] && codigoInput.touched" style="color: #dc3545; display: block; margin-top: 5px; font-size: 0.85em;">
+            El código debe contener exactamente 12 números.
+          </small>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Persona de Contacto</legend>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nombre del Representante</label>
+            <input type="text" [(ngModel)]="empresa.nombreContacto" name="nombreContacto" placeholder="Ej. Juan Pérez" required>
+          </div>
+          <div class="form-group">
+            <label>Teléfono de Contacto</label>
+            <input type="tel" [(ngModel)]="empresa.telefonoContacto" name="telefonoContacto" placeholder="0414-0000000" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Breve Descripción de la Empresa y Entorno de Trabajo</label>
+          <textarea [(ngModel)]="empresa.descripcion" name="descripcion" placeholder="Describe brevemente a qué se dedica la organización..." rows="3"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn-submit" [disabled]="!registroForm.form.valid">Registrar Empresa</button>
+    </form>
+
+  </div>
+</div>
