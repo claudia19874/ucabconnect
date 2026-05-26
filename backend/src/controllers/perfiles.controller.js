@@ -10,7 +10,7 @@ class PerfilesController {
         try {
             const { sedeUcab, nombre, apellido, cedula, telefono, correoInstitucional, carrera, semestreActual, contrasena } = req.body;
 
-            if (!sedeUcab || !nombre || !apellido || !cedula || !correoInstitucional || !contrasena) {
+            if (!sedeUcab || !nombre || !apellido || !cedula|| !telefono || !correoInstitucional || !contrasena) {
                 return res.status(400).json({ 
                     error: true, 
                     message: "Faltan campos obligatorios en el formulario de estudiante." 
@@ -115,6 +115,21 @@ class PerfilesController {
             return res.status(500).json({ error: true, message: "Error interno al registrar la empresa." });
         }
     }
+
+    async obtenerPerfil(req, res) {
+    try {
+        const { cedula } = req.params;
+        const usuario = usuariosDB.find(u => u.cedula === cedula);
+        
+        if (!usuario) {
+            return res.status(404).json({ error: true, message: "Estudiante no encontrado." });
+        }
+        
+        return res.status(200).json({ success: true, data: usuario });
+        } catch (error) {
+        return res.status(500).json({ error: true, message: "Error al obtener el perfil." });
+        }
+   }
 }
 
 module.exports = new PerfilesController();

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
+import { EstudianteService } from '../../../core/services/estudiante'; 
 
 @Component({
   selector: 'app-registro-estudiante',
@@ -16,28 +17,49 @@ export class RegistroEstudianteComponent {
     nombreCompleto: '',
     cedula: '',
     correo: '',
+    telefono: '',
     contrasena: '',
     carrera: '',
     semestre: '',
     habilidades: '',
     intereses: '',
-    sede: 'Caracas' // Valor inicial por defecto
+    sedeUcab: 'Caracas'
   };
-
-  constructor(private router: Router) {}
+  constructor(private router: Router, private estudianteService: EstudianteService) {}
 
   setSede(sede: string) {
-    this.estudiante.sede = sede;
+    this.estudiante.sedeUcab = sede;
   }
 
-  onRegistro() {
+ onRegistro() {
     if (!this.estudiante.correo.endsWith('@est.ucab.edu.ve')) {
-      alert('Por favor, ingresa un correo institucional válido (@est.ucab.edu.ve).');
-      return;
+        alert('Por favor, ingresa un correo institucional válido (@est.ucab.edu.ve).');
+        return;
     }
 
-    console.log('Datos de estudiante listos para enviar:', this.estudiante);
-    alert('¡Registro de estudiante exitoso! Ya puedes iniciar sesión.');
-    this.router.navigate(['/login']);
+    const datosParaEnviar = {
+        sedeUcab: this.estudiante.sedeUcab,
+        nombre: this.estudiante.nombreCompleto.split(' ')[0] || '', 
+        apellido: this.estudiante.nombreCompleto.split(' ')[1] || '',
+        cedula: this.estudiante.cedula,
+        telefono: this.estudiante.telefono, 
+        correoInstitucional: this.estudiante.correo,
+        carrera: this.estudiante.carrera,
+        semestreActual: parseInt(this.estudiante.semestre) || 1,
+        contrasena: this.estudiante.contrasena
+    };
+
+    // Enviamos el objeto 
+    this.estudianteService.registrar(datosParaEnviar).subscribe({
+      next: (res: any) => {
+        console.log('Backend respondió:', res);
+        alert('¡Registro de estudiante exitoso!');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error('Error al registrar:', err);
+        alert('Error: ' + (err.error.message || 'No se pudo conectar con el servidor'));
+      }
+    });
   }
 }

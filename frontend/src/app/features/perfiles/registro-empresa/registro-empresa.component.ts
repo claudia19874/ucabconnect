@@ -27,7 +27,6 @@ export class RegistroEmpresaComponent {
   constructor(private router: Router) {}
 
   onRegistroEmpresa() {
-    // Sin bloqueos de Front. Empaquetamos y directo a la consola para el backend
     console.log('Datos listos para enviar a la API del backend:', this.empresa);
     
     alert('¡Registro de empresa enviado! El backend validará sus credenciales.');

@@ -13,18 +13,12 @@
         <legend>Información Personal</legend>
 
         <div class="form-group">
-        <label>Sede</label>
-        <div class="btn-group-toggle">
-        <button 
-        type="button" 
-        [class.active]="estudiante.sede === 'Caracas'" 
-        (click)="setSede('Caracas')">Caracas
-        </button><button 
-        type="button" 
-        [class.active]="estudiante.sede === 'Guayana'" 
-        (click)="setSede('Guayana')">Guayana</button>
+          <label>Sede</label>
+          <div class="btn-group-toggle">
+            <button type="button" [class.active]="estudiante.sedeUcab === 'Caracas'" (click)="setSede('Caracas')">Caracas</button>
+            <button type="button" [class.active]="estudiante.sedeUcab === 'Guayana'" (click)="setSede('Guayana')">Guayana</button>
+          </div>
         </div>
-      </div>
         
         <div class="form-group">
           <label>Nombre Completo</label>
@@ -38,20 +32,24 @@
           </div>
           
           <div class="form-group">
-            <label>Correo Institucional</label>
-            <input 
-              type="email" 
-              [(ngModel)]="estudiante.correo" 
-              name="correo" 
-              placeholder="usuario@est.ucab.edu.ve" 
-              required
-              pattern="[a-zA-Z0-9._%+-]+@est\.ucab\.edu\.ve"
-              #correoInput="ngModel">
-            
-            <small *ngIf="correoInput.errors?.['pattern'] && correoInput.touched" style="color: #dc3545; display: block; margin-top: 5px; font-size: 0.85em;">
-              Debes ingresar tu correo institucional de la UCAB (@est.ucab.edu.ve)
-            </small>
+            <label>Teléfono</label>
+            <input type="tel" [(ngModel)]="estudiante.telefono" name="telefono" placeholder="+58 412-1234567" required>
           </div>
+        </div>
+
+        <div class="form-group">
+          <label>Correo Institucional</label>
+          <input 
+            type="email" 
+            [(ngModel)]="estudiante.correo" 
+            name="correo" 
+            placeholder="usuario@est.ucab.edu.ve" 
+            required
+            pattern="[a-zA-Z0-9._%+-]+@est\.ucab\.edu\.ve"
+            #correoInput="ngModel">
+          <small *ngIf="correoInput.errors?.['pattern'] && correoInput.touched" style="color: #dc3545; display: block; margin-top: 5px; font-size: 0.85em;">
+            Debes ingresar tu correo institucional de la UCAB (@est.ucab.edu.ve)
+          </small>
         </div>
 
         <div class="form-group">
@@ -62,18 +60,11 @@
 
       <fieldset>
         <legend>Información Académica</legend>
-        
         <div class="form-grid">
           <div class="form-group">
             <label>Carrera que estudias</label>
-            <input 
-              type="text" 
-              [(ngModel)]="estudiante.carrera" 
-              name="carrera" 
-              placeholder="Ej. Ingeniería Informática" 
-              required>
+            <input type="text" [(ngModel)]="estudiante.carrera" name="carrera" placeholder="Ej. Ingeniería Informática" required>
           </div>
-
           <div class="form-group">
             <label>Semestre Actual</label>
             <select [(ngModel)]="estudiante.semestre" name="semestre" required>
@@ -86,12 +77,10 @@
 
       <fieldset>
         <legend>Perfil Técnico</legend>
-        
         <div class="form-group">
           <label>Habilidades / Tecnologías (Separadas por comas)</label>
           <textarea [(ngModel)]="estudiante.habilidades" name="habilidades" placeholder="Ej. Java, Angular, SQL, Express, Figma" rows="3" required></textarea>
         </div>
-
         <div class="form-group">
           <label>Áreas de Interés / Preferencias</label>
           <textarea [(ngModel)]="estudiante.intereses" name="interinterests" placeholder="Ej. Desarrollo Backend, UI/UX, Gestión de Proyectos" rows="2"></textarea>
@@ -100,6 +89,5 @@
 
       <button type="submit" class="btn-submit" [disabled]="!registroForm.form.valid">Registrarse</button>
     </form>
-
   </div>
 </div>

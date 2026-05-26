@@ -25,11 +25,11 @@
 }
 
 .logo-central {
-  width: 83px;         /* Ajusta el ancho a tu gusto */
-  height: auto;        /* Mantiene la proporción para que no se estire */
-  display: block;      /* Permite centrarlo fácilmente */
-  margin: 0 auto 12px; /* Lo centra horizontalmente y le da espacio abajo */
-  object-fit: contain; /* Asegura que calce perfecto en su espacio */
+  width: 83px;         
+  height: auto;       
+  display: block;      
+  margin: 0 auto 12px; 
+  object-fit: contain; 
 }
 
 .brand-header h1 {
