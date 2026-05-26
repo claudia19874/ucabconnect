@@ -1,10 +1,9 @@
 import { Routes } from '@angular/router';
-import { DashboardEstudianteComponent } from './estudiante/dashboard-estudiante.component';
-import { DashboardEmpresaComponent } from './empresa/dashboard-empresa.component';
+import { GenerarNotificacionComponent } from './Notificaciones/Empresa/generar-notificacion.component';
+import { ConsultarNotificacionesComponent } from './Notificaciones/Estudiante/consultar-notificaciones.component';
 
 export const routes: Routes = [
-  { path: 'estudiante', component: DashboardEstudianteComponent },
-  { path: 'empresa', component: DashboardEmpresaComponent },
-  // Redirige por defecto a estudiante para pruebas
-  { path: '', redirectTo: '/estudiante', pathMatch: 'full' } 
+  { path: 'empresa',    component: GenerarNotificacionComponent },
+  { path: 'estudiante', component: ConsultarNotificacionesComponent },
+  { path: '', redirectTo: '/estudiante', pathMatch: 'full' }
 ];

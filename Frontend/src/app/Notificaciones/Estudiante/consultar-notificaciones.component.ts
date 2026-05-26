@@ -2,18 +2,18 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-estudiante',
+  selector: 'app-consultar-notificaciones',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './dashboard-estudiante.component.html',
-  styleUrls: ['./dashboard-estudiante.component.css']
+  templateUrl: './consultar-notificaciones.component.html',
+  styleUrls: ['./consultar-notificaciones.component.css']
 })
-export class DashboardEstudianteComponent {
-  activeTab = 'explorar'; 
-  pasantias: any[] = []; 
-  
+export class ConsultarNotificacionesComponent {
+  activeTab = 'explorar';
+  pasantias: any[] = [];
+
   showAvisosModal: boolean = false;
-  notificaciones: any[] = []; 
+  notificaciones: any[] = [];
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -22,7 +22,7 @@ export class DashboardEstudianteComponent {
     this.cdr.detectChanges();
   }
 
-  toggleAvisos() {  
+  toggleAvisos() {
     this.showAvisosModal = !this.showAvisosModal;
     if (this.showAvisosModal) {
       this.cargarNotificaciones();

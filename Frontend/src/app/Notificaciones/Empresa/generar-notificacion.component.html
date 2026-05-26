@@ -71,7 +71,7 @@
         <h2>Crear Nueva Notificación</h2>
         <button class="btn-close" (click)="cerrarModalNotificacion()">✕</button>
       </div>
-      
+
       <div class="info-alert">
         <strong>Información:</strong> Esta notificación será visible para todos los estudiantes en su bandeja de avisos.
       </div>
@@ -90,7 +90,10 @@
         </div>
 
         <div class="form-actions">
-          <button type="button" class="btn-primary full-width" (click)="publicarNotificacion(tituloInput.value, mensajeInput.value); tituloInput.value=''; mensajeInput.value=''">➤ Publicar Notificación</button>
+          <button type="button" class="btn-primary full-width"
+            (click)="publicarNotificacion(tituloInput.value, mensajeInput.value); tituloInput.value=''; mensajeInput.value=''">
+            ➤ Publicar Notificación
+          </button>
           <button type="button" class="btn-outline outline-secondary" (click)="cerrarModalNotificacion()">Cancelar</button>
         </div>
       </form>

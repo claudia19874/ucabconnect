@@ -1,34 +1,34 @@
-import { Component, ChangeDetectorRef } from '@angular/core'; // 1. Importamos ChangeDetectorRef
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-empresa',
+  selector: 'app-generar-notificacion',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './dashboard-empresa.component.html',
-  styleUrls: ['./dashboard-empresa.component.css']
+  templateUrl: './generar-notificacion.component.html',
+  styleUrls: ['./generar-notificacion.component.css']
 })
-export class DashboardEmpresaComponent {
-  activeTab = 'ofertas';
+export class GenerarNotificacionComponent {
+  activeTab = 'notificaciones';
 
   ofertasActivas: number = 0;
   totalAplicaciones: number = 0;
   ofertasCerradas: number = 0;
-  ofertas: any[] = [];
 
   showCrearNotificacionModal: boolean = false;
   notificacionesPublicadas: number = 0;
-  notificaciones: any[] = []; 
+  notificaciones: any[] = [];
 
-  // 2. Inyectamos la herramienta
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) {
+    this.cargarNotificaciones();
+  }
 
   setTab(tab: string) {
     this.activeTab = tab;
     if (tab === 'notificaciones') {
       this.cargarNotificaciones();
     }
-    this.cdr.detectChanges(); // Forzamos la actualización visual
+    this.cdr.detectChanges();
   }
 
   abrirModalNotificacion() {
@@ -47,7 +47,7 @@ export class DashboardEmpresaComponent {
       if (respuesta.ok) {
         this.notificaciones = await respuesta.json();
         this.notificacionesPublicadas = this.notificaciones.length;
-        this.cdr.detectChanges(); // 3. Le avisamos a Angular que los datos llegaron
+        this.cdr.detectChanges();
       }
     } catch (error) {
       console.error("Error al cargar notificaciones:", error);
@@ -69,8 +69,8 @@ export class DashboardEmpresaComponent {
 
       if (respuesta.ok) {
         alert("¡Notificación publicada con éxito!");
-        this.cerrarModalNotificacion(); 
-        this.cargarNotificaciones(); 
+        this.cerrarModalNotificacion();
+        this.cargarNotificaciones();
       }
     } catch (error) {
       console.error("Error al publicar:", error);
@@ -84,7 +84,7 @@ export class DashboardEmpresaComponent {
           method: 'DELETE'
         });
         if (respuesta.ok) {
-          this.cargarNotificaciones(); 
+          this.cargarNotificaciones();
         }
       } catch (error) {
         console.error("Error al eliminar la notificación:", error);
