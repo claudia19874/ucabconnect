@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const notificacionController = require('./controllers/notificacion.controller');
-
+const notificacionController = require('./src/controllers/notificacion.controller');
 const app = express();
 const PORT = 3000;
 

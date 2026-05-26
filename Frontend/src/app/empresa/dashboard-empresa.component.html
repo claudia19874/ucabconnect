@@ -56,7 +56,7 @@
         <div class="aviso-contenido">
           <h3 class="aviso-titulo-texto">{{ aviso.titulo }}</h3>
           <p class="aviso-cuerpo-texto">{{ aviso.mensaje }}</p>
-          <small class="aviso-fecha-texto">📅 Publicado el: {{ aviso.fecha | date:'short' }}</small>
+          <small class="aviso-fecha-texto"> Publicado el: {{ aviso.fecha | date:'short' }}</small>
         </div>
         <button class="btn-delete-aviso" (click)="eliminarNotificacion(aviso.id)">
           🗑 Eliminar aviso

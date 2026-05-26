@@ -1,3 +1,11 @@
 {
-  "notificaciones": []
+  "notificaciones": [
+    {
+      "id": "1779753653325",
+      "titulo": "hola",
+      "mensaje": "123",
+      "fecha": "2026-05-26T00:00:53.325Z",
+      "empresaId": "emp_ucab_generica_001"
+    }
+  ]
 }
