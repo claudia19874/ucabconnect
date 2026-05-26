@@ -308,3 +308,42 @@
   border-radius: 12px;
   cursor: pointer;
 }
+/* --- LISTA DE NOTIFICACIONES --- */
+.avisos-lista {
+  margin-top: 20px;
+  max-height: 400px; /* Altura máxima para que no crezca infinitamente */
+  overflow-y: auto;  /* Agrega una barra de desplazamiento si hay muchos avisos */
+  padding-right: 5px; /* Pequeño espacio para la barra de scroll */
+}
+
+.aviso-card {
+  border: 1px solid #D1D5DB;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background: white;
+  transition: box-shadow 0.2s; /* Pequeña animación */
+}
+
+.aviso-card:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Efecto al pasar el mouse */
+}
+
+.aviso-title {
+  margin: 0 0 8px 0;
+  color: #111827;
+  font-size: 1.1rem;
+}
+
+.aviso-message {
+  margin: 0 0 10px 0;
+  color: #4B5563;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.aviso-meta {
+  color: #6B7280;
+  font-size: 0.8rem;
+  display: block; /* Asegura que la fecha y empresa se queden en su propia línea */
+}
