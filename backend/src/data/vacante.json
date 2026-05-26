@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1779760437469",
+    "titulo": "desarrollador web",
+    "ubicacion": "Caracas, Venezuela",
+    "salario": "$200-$500",
+    "duracion": "4 meses",
+    "modalidad": "Remoto",
+    "descripcion": "trabaja en polar",
+    "requisitos": [
+      "html"
+    ],
+    "sector": "Tecnología",
+    "estado": "Cerrada",
+    "fechaPublicacion": "2026-05-26T01:53:57.469Z"
+  },
+  {
+    "id": "1779760559343",
+    "titulo": "Gerente de sistema",
+    "ubicacion": "Caracas, Venezuela",
+    "salario": "9900",
+    "duracion": "1 año",
+    "modalidad": "Presencial",
+    "descripcion": "que loco brou",
+    "requisitos": [
+      "html"
+    ],
+    "sector": "Software",
+    "estado": "Cerrada",
+    "fechaPublicacion": "2026-05-26T01:55:59.343Z"
+  }
+]

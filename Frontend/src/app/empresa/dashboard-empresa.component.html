@@ -20,6 +20,7 @@
   </nav>
 
   <main class="content" *ngIf="activeTab === 'ofertas'">
+    
     <div class="stats-grid">
       <div class="stat-card">
         <p>Ofertas Activas</p>
@@ -34,6 +35,11 @@
         <h3>{{ ofertasCerradas }}</h3>
       </div>
     </div>
+
+    <div class="gestion-vacantes-integracion" style="margin-top: 25px; width: 100%;">
+      <app-ver-vacantes></app-ver-vacantes>
+    </div>
+
   </main>
 
   <main class="content" *ngIf="activeTab === 'notificaciones'">

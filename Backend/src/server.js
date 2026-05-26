@@ -1,26 +1,18 @@
 const express = require('express');
 const cors = require('cors');
-const notificacionController = require('./controllers/notificacion.controller');
+const vacanteRoutes = require('./routes/vacanteRoutes');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3000; // Puedes cambiarlo si usas otro puerto
 
-// Middlewares globales
-app.use(cors());
-app.use(express.json());
+// Middlewares obligatorios
+app.use(cors()); // Permite peticiones desde el frontend (Angular)
+app.use(express.json()); // Permite al servidor entender datos en formato JSON
 
-// ==========================================
-// ENLACE DE RUTAS A LOS CONTROLADORES
-// ==========================================
+// Conexión de Rutas
+app.use('/api/vacantes', vacanteRoutes);
 
-app.get('/api/notificaciones', notificacionController.getNotificaciones);
-app.post('/api/notificaciones', notificacionController.crearNotificacion);
-app.delete('/api/notificaciones/:id', notificacionController.eliminarNotificacion);
-app.delete('/api/notificaciones', notificacionController.limpiarBandeja);
-
-// ==========================================
-// ARRANQUE DEL SERVIDOR
-// ==========================================
+// Arranque del servidor
 app.listen(PORT, () => {
-    console.log(`✅ Servidor estructurado corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor Backend de UCABConnect corriendo en http://localhost:${PORT}`);
 });

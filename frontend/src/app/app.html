@@ -1,15 +1,1 @@
-<app-ver-vacantes 
-  *ngIf="vistaActual === 'lista'" 
-  (irAPublicar)="cambiarVista('publicar')">
-</app-ver-vacantes>
-
-<div *ngIf="vistaActual === 'publicar'">
-  <app-publicar-vacante></app-publicar-vacante>
-  <div style="max-width: 600px; margin: 0 auto; padding: 0 2rem;">
-    <button (click)="cambiarVista('lista')" style="background: none; border: none; color: #666; cursor: pointer; font-weight: 500;">
-      ⬅️ Volver al Panel de Vacantes
-    </button>
-  </div>
-</div>
-
 <router-outlet></router-outlet>

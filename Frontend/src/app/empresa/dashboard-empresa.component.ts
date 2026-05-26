@@ -1,10 +1,13 @@
-import { Component, ChangeDetectorRef } from '@angular/core'; // 1. Importamos ChangeDetectorRef
+import { Component, ChangeDetectorRef } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
+// 1. IMPORTA TU COMPONENTE (Ajusta la ruta si tus carpetas tienen nombres distintos)
+import { VerVacantesComponent } from '../components/ver-vacantes/ver-vacantes'; 
 
 @Component({
   selector: 'app-dashboard-empresa',
   standalone: true,
-  imports: [CommonModule],
+  // 2. AGREGA TU COMPONENTE AL ARREGLO DE IMPORTS JUNTO A COMMONMODULE
+  imports: [CommonModule, VerVacantesComponent], 
   templateUrl: './dashboard-empresa.component.html',
   styleUrls: ['./dashboard-empresa.component.css']
 })
@@ -20,7 +23,6 @@ export class DashboardEmpresaComponent {
   notificacionesPublicadas: number = 0;
   notificaciones: any[] = []; 
 
-  // 2. Inyectamos la herramienta
   constructor(private cdr: ChangeDetectorRef) {}
 
   setTab(tab: string) {
@@ -28,7 +30,7 @@ export class DashboardEmpresaComponent {
     if (tab === 'notificaciones') {
       this.cargarNotificaciones();
     }
-    this.cdr.detectChanges(); // Forzamos la actualización visual
+    this.cdr.detectChanges(); 
   }
 
   abrirModalNotificacion() {

@@ -1,59 +1,127 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Vital para capturar datos de formularios
 import { Vacante } from '../../models/vacante.models';
+import { VacanteService } from '../../services/vacante.service';
 
 @Component({
   selector: 'app-ver-vacantes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule], // Agregamos FormsModule aquí
   templateUrl: './ver-vacantes.html',
   styleUrls: ['./ver-vacantes.css']
 })
-export class VerVacantesComponent {
-  // Evento para avisarle a la vista principal que queremos ir a publicar
-  @Output() irAPublicar = new EventEmitter<void>();
+export class VerVacantesComponent implements OnInit {
+  
+  listaVacantes: Vacante[] = [];
+  
+  // Controla si el formulario emergente está abierto o cerrado
+  mostrarModal: boolean = false;
 
-  // Lista inicial de vacantes simuladas siguiendo estrictamente tu modelo Orientado a Objetos
-  listaVacantes: Vacante[] = [
-    {
-      id: '1',
-      titulo: 'Pasante de Desarrollo Frontend Angular',
-      ubicacion: 'Caracas, Venezuela',
-      salario: '$400 USD',
-      duracion: '6 meses',
-      modalidad: 'Híbrido',
-      descripcion: 'Buscamos estudiante de Ingeniería Informática de la UCAB para desarrollo del portal institucional.',
-      requisitos: ['Angular', 'TypeScript', 'CSS', 'Git'],
-      sector: 'Tecnología',
-      estado: 'Activa',
-      fechaPublicacion: new Date('2026-05-20')
-    },
-    {
-      id: '2',
-      titulo: 'Analista de Ciberseguridad Jr (Pasantía)',
-      ubicacion: 'Caracas, Venezuela',
-      salario: '$450 USD',
-      duracion: '6 meses',
-      modalidad: 'Presencial',
-      descripcion: 'Apoyo en el monitoreo de redes y auditoría interna de archivos log.',
-      requisitos: ['Python', 'Redes', 'Linux'],
-      sector: 'Banca / Finanzas',
-      estado: 'Activa',
-      fechaPublicacion: new Date('2026-05-22')
+  // Objeto limpio para almacenar los datos que escriba el reclutador
+  nuevaVacante = {
+    titulo: '',
+    sector: '',
+    modalidad: 'Presencial', // Valor por defecto
+    duracion: '',
+    salario: '',
+    ubicacion: 'Caracas, Venezuela', // Restricción del Brief
+    descripcion: '',
+    requisitosInput: '' // Los capturamos como texto separado por comas
+  };
+
+  constructor(private vacanteService: VacanteService) {}
+
+  ngOnInit(): void {
+    this.obtenerVacantes();
+  }
+
+  obtenerVacantes() {
+    this.vacanteService.getVacantes().subscribe({
+      next: (datos) => {
+        this.listaVacantes = datos;
+      },
+      error: (err) => {
+        console.error('Error al cargar vacantes:', err);
+      }
+    });
+  }
+
+  // Abre el formulario modal
+  navegarAPublicar() {
+    this.mostrarModal = true;
+  }
+
+  // Cierra el formulario modal y lo limpia
+  cerrarModal() {
+    this.mostrarModal = false;
+    this.resetFormulario();
+  }
+
+  // Envía los datos capturados hacia tu servidor Express (Petición POST)
+  publicarVacante() {
+    // Validación básica de campos obligatorios (Criterio de Aceptación de tu ERS)
+    if (!this.nuevaVacante.titulo || !this.nuevaVacante.descripcion || !this.nuevaVacante.sector) {
+      alert('Por favor, rellene todos los campos obligatorios (*).');
+      return;
     }
-  ];
 
-  // Acción de la Historia de Usuario 3: Cerrar Vacante
+    // Convertimos la cadena de requisitos en un arreglo Orientado a Objetos limpio
+    const arregloRequisitos = this.nuevaVacante.requisitosInput
+      ? this.nuevaVacante.requisitosInput.split(',').map(req => req.trim())
+      : [];
+
+    // Estructuramos el payload final para mandar al Backend
+    const vacanteParaEnviar = {
+      titulo: this.nuevaVacante.titulo,
+      sector: this.nuevaVacante.sector,
+      modalidad: this.nuevaVacante.modalidad,
+      duracion: this.nuevaVacante.duracion,
+      salario: this.nuevaVacante.salario,
+      ubicacion: this.nuevaVacante.ubicacion,
+      descripcion: this.nuevaVacante.descripcion,
+      requisitos: arregloRequisitos
+    };
+
+    // Consumimos el servicio HTTP POST
+    this.vacanteService.postVacante(vacanteParaEnviar).subscribe({
+      next: (respuesta) => {
+        alert('🎉 ¡Vacante publicada y guardada con éxito en el archivo JSON!');
+        this.obtenerVacantes(); // Refrescamos la tabla instantáneamente
+        this.cerrarModal(); // Cerramos la ventana flotante
+      },
+      error: (err) => {
+        console.error('Error al publicar:', err);
+        alert('Hubo un error de red al intentar guardar en el archivo JSON.');
+      }
+    });
+  }
+
   cerrarOferta(vacante: Vacante) {
+    if (!vacante.id) return;
+    
     const confirmar = confirm(`¿Estás seguro de que deseas cerrar la vacante: "${vacante.titulo}"?`);
     if (confirmar) {
-      vacante.estado = 'Cerrada';
-      alert('La vacante ha sido cerrada exitosamente. Los estudiantes ya no podrán postularse.');
+      this.vacanteService.putCerrarVacante(vacante.id).subscribe({
+        next: () => {
+          vacante.estado = 'Cerrada';
+          alert('La vacante ha sido clausurada exitosamente.');
+        },
+        error: (err) => console.error(err)
+      });
     }
   }
 
-  // Dispara el evento para cambiar de pestaña
-  navegarAPublicar() {
-    this.irAPublicar.emit();
+  resetFormulario() {
+    this.nuevaVacante = {
+      titulo: '',
+      sector: '',
+      modalidad: 'Presencial',
+      duracion: '',
+      salario: '',
+      ubicacion: 'Caracas, Venezuela',
+      descripcion: '',
+      requisitosInput: ''
+    };
   }
 }
