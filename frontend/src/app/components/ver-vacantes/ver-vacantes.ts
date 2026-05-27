@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Vital para capturar datos de formularios
 import { Vacante } from '../../models/vacante.models';
@@ -30,7 +30,7 @@ export class VerVacantesComponent implements OnInit {
     requisitosInput: '' // Los capturamos como texto separado por comas
   };
 
-  constructor(private vacanteService: VacanteService) {}
+  constructor(private vacanteService: VacanteService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.obtenerVacantes();
@@ -40,6 +40,8 @@ export class VerVacantesComponent implements OnInit {
     this.vacanteService.getVacantes().subscribe({
       next: (datos) => {
         this.listaVacantes = datos;
+        //Forzamos la actualización visual de forma explícita
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error al cargar vacantes:', err);
@@ -95,7 +97,7 @@ export class VerVacantesComponent implements OnInit {
         alert('Hubo un error de red al intentar guardar en el archivo JSON.');
       }
     });
-  }
+  } 
 
   cerrarOferta(vacante: Vacante) {
     if (!vacante.id) return;
@@ -104,10 +106,16 @@ export class VerVacantesComponent implements OnInit {
     if (confirmar) {
       this.vacanteService.putCerrarVacante(vacante.id).subscribe({
         next: () => {
-          vacante.estado = 'Cerrada';
+          // 1. Mostramos el mensaje de éxito
           alert('La vacante ha sido clausurada exitosamente.');
+          
+          // 2. LA MAGIA: Forzamos a Angular a traer los datos frescos del JSON
+          this.obtenerVacantes(); 
         },
-        error: (err) => console.error(err)
+        error: (err) => {
+          console.error('Error al cerrar la vacante:', err);
+          alert('Hubo un problema de conexión con el servidor.');
+        }
       });
     }
   }
