@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-dashboard-estudiante',
@@ -9,72 +11,137 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './dashboard-estudiante.component.html',
   styleUrls: ['./dashboard-estudiante.component.css']
 })
-export class DashboardEstudianteComponent {
-  activeTab = 'explorar'; 
 
-  // Arreglo vacío a la espera de los datos del backend
-  pasantias: any[] = []; 
+export class DashboardEstudianteComponent {
+
+  /* =========================
+     CONSTRUCTOR
+  ========================= */
+
+  constructor(
+    private usuarioService: UsuarioService,
+    private router: Router 
+  ) {}
+
+  /* =========================
+     VARIABLES
+  ========================= */
+
+  notificaciones: any[] = [];
+
+  activeTab = 'explorar';
+
+  pasantias: any[] = [];
 
   showAvisosModal: boolean = false;
 
   showEditModal: boolean = false;
 
-// Datos simulados del usuario logueado
-usuario = {
-  nombre: 'Juan Pérez',
-  email: 'juan.perez@ucab.edu.ve',
-  cedula: 'V-12345678',
-  carrera: 'Ingeniería Informática',
-  semestre: '8° Semestre',
-  sede: 'Montalbán (Caracas)',
-  telefono: '+58 412-1234567',
-  habilidades: [
-    'JavaScript',
-    'React',
-    'Node.js',
-    'Python',
-    'SQL',
-    'Git'
-  ]
-};
+  // Usuario que viene del backend
+  usuario: any = {};
 
-// Copia temporal para editar
-editUsuario: any = {};
+  // Copia temporal para editar
+  editUsuario: any = {};
+
+  /* =========================
+     INICIO COMPONENTE
+  ========================= */
+
+  ngOnInit() {
+
+    this.obtenerUsuario();
+
+  }
+
+  /* =========================
+     OBTENER USUARIO
+  ========================= */
+
+  obtenerUsuario() {
+
+    this.usuarioService.obtenerUsuario().subscribe({
+
+      next: (data: any) => {
+
+        this.usuario = data;
+
+      },
+
+      error: (error: any) => {
+
+        console.error('Error obteniendo usuario:', error);
+
+      }
+
+    });
+
+  }
+
+  /* =========================
+     CAMBIAR TABS
+  ========================= */
 
   setTab(tab: string) {
+
     this.activeTab = tab;
+
   }
 
-  toggleAvisos() {  // Función para abrir y cerrar el modal
+  /* =========================
+     MODAL NOTIFICACIONES
+  ========================= */
+
+  toggleAvisos() {
+
     this.showAvisosModal = !this.showAvisosModal;
+
   }
+
+  /* =========================
+     ABRIR EDITAR PERFIL
+  ========================= */
 
   abrirEditarPerfil() {
 
-  this.editUsuario = {
-    ...this.usuario,
-    habilidades: [...this.usuario.habilidades]
-  };
+    this.editUsuario = {
+      ...this.usuario,
+      habilidades: [...this.usuario.habilidades]
+    };
 
-  this.showEditModal = true;
-}
+    this.showEditModal = true;
 
-cerrarEditarPerfil() {
-  this.showEditModal = false;
-}
+  }
 
-guardarCambios() {
+  /* =========================
+     CERRAR EDITAR PERFIL
+  ========================= */
 
-  this.usuario = {
-    ...this.editUsuario,
-    habilidades:
-      typeof this.editUsuario.habilidades === 'string'
-        ? this.editUsuario.habilidades
-            .split(',')
-            .map((h: string) => h.trim())
-        : this.editUsuario.habilidades
-  };
+  cerrarEditarPerfil() {
+    this.showEditModal = false;
+  }
 
-  this.showEditModal = false;
-}
+  /* =========================
+     GUARDAR CAMBIOS
+  ========================= */
+
+  guardarCambios() {
+    this.usuario = {
+      ...this.editUsuario,
+      habilidades:
+        typeof this.editUsuario.habilidades === 'string'
+          ? this.editUsuario.habilidades
+              .split(',')
+              .map((h: string) => h.trim())
+          : this.editUsuario.habilidades
+    };
+    this.showEditModal = false;
+  }
+
+  /* =========================
+     CERRAR SESIÓN
+  ========================= */
+  cerrarSesion() {
+    this.router.navigate(['/login']);
+  }
+
 }

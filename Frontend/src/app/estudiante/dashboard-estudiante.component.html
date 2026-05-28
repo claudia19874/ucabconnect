@@ -1,7 +1,7 @@
 <div class="dashboard-container">
   <header class="header">
     <div class="brand-section">
-      <img src="/logoucab.png" alt="Logo UCAB" class="logo-img">
+      <img src="assets/logo.png" alt="Logo UCAB" class="logo-img">
       <div class="brand-text">
         <h1>UCAB Connect</h1>
         <span>Panel de Estudiante</span>
@@ -9,7 +9,7 @@
     </div>
     <div class="header-actions">
       <button class="btn-text" (click)="toggleAvisos()"> Notificaciones</button>
-      <button class="btn-text">Cerrar sesión</button>
+      <button class="btn-text" (click)="cerrarSesion()">Cerrar sesión</button>
     </div>
   </header>
 
@@ -44,7 +44,7 @@
         <p class="job-desc">{{ job.descripcion }}</p>
       </div>
     </div>
-  </main>
+</main>
 
 <main class="profile-content" *ngIf="activeTab === 'perfil'">
 
@@ -53,12 +53,12 @@
     <div class="profile-header">
 
       <div class="avatar">
-        JP
+        {{ usuario.nombre?.split(' ')[0]?.charAt(0) }}{{ usuario.nombre?.split(' ')[1]?.charAt(0) }}
       </div>
 
       <div class="profile-info">
-        <h2>{{ usuario.nombre }}</h2>
-        <p>{{ usuario.email }}</p>
+        <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+        <p>{{ usuario.correoInstitucional }}</p>
         <span>{{ usuario.cedula }}</span>
       </div>
 
@@ -78,12 +78,12 @@
 
         <div class="academic-item">
           <label>Semestre</label>
-          <p>{{ usuario.semestre }}</p>
+          <p>{{ usuario.semestreActual }}</p>
         </div>
 
         <div class="academic-item">
           <label>Sede</label>
-          <p>{{ usuario.sede }}</p>
+          <p>{{ usuario.sedeUcab }}</p>
         </div>
 
         <div class="academic-item">
@@ -97,15 +97,22 @@
 
     <!-- Habilidades -->
     <div class="skills-section">
-
       <h3>Habilidades</h3>
-
-      <span class="skill-pill" *ngFor="let habilidad of usuario.habilidades">
-        {{ habilidad }}
-      </span>
-
+      <div class="skills-container">
+        <span class="skill-pill" *ngFor="let habilidad of usuario.habilidades">
+          {{ habilidad }}
+        </span>
+      </div>
     </div>
 
+    <div class="skills-section">
+      <h3>Intereses</h3>
+      <div class="skills-container">
+        <span class="skill-pill" *ngFor="let interes of usuario.intereses">
+          {{ interes }}
+        </span>
+      </div>
+    </div>
     <!-- Botón -->
     <button class="edit-profile-btn" (click)="abrirEditarPerfil()">
       Editar Perfil
@@ -161,14 +168,17 @@
         </div>
 
         <div class="form-group">
-
           <label>Semestre</label>
-
-          <input
-            type="text"
-            [(ngModel)]="editUsuario.semestre"
-          >
-
+          <select [(ngModel)]="editUsuario.semestreActual">
+            <option value="1° Semestre">1° Semestre</option>
+            <option value="2° Semestre">2° Semestre</option>
+            <option value="3° Semestre">3° Semestre</option>
+            <option value="4° Semestre">4° Semestre</option>
+            <option value="5° Semestre">5° Semestre</option>
+            <option value="6° Semestre">6° Semestre</option>
+            <option value="7° Semestre">7° Semestre</option>
+            <option value="8° Semestre">8° Semestre</option>
+          </select>
         </div>
 
       </div>

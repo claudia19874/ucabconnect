@@ -17,7 +17,7 @@ app.use(express.json());
    RUTAS
 ========================= */
 
-app.use('/usuario', usuarioRoutes);
+app.use('/api/usuario', usuarioRoutes);
 
 /* =========================
    RUTA TEST
