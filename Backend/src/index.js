@@ -1,6 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 
+/* =========================
+   IMPORTAR RUTAS
+========================= */
+
+const postulacionRoutes = require('./routes/PostulacionRoutes');
+
 const app = express();
 
 app.use(cors());
@@ -52,7 +58,6 @@ const usuarioEmpresa = {
 /* =========================
    BASES DE DATOS TEMPORALES
 ========================= */
-// Aquí guardaremos las vacantes y notificaciones en memoria
 let vacantesPublicadas = [];
 let notificacionesPublicadas = [];
 
@@ -82,7 +87,6 @@ app.get('/api/usuario', (req, res) => {
 app.post('/api/usuario/login', (req, res) => {
   const { email, contrasena } = req.body;
 
-  // LOGIN ESTUDIANTE
   if (
     email === usuarioEstudiante.correoInstitucional &&
     contrasena === usuarioEstudiante.contrasena
@@ -94,7 +98,6 @@ app.post('/api/usuario/login', (req, res) => {
     });
   }
 
-  // LOGIN EMPRESA
   if (
     email === usuarioEmpresa.correo &&
     contrasena === usuarioEmpresa.contrasena
@@ -135,33 +138,24 @@ app.post('/api/recuperar-password', (req, res) => {
 /* =========================
    GESTIÓN DE VACANTES
 ========================= */
-// 1. Ruta para RECIBIR y guardar una nueva vacante
+
 app.post('/api/vacantes', (req, res) => {
   const nuevaVacante = req.body;
-  
-  // Le asignamos un ID único basado en la hora actual
   nuevaVacante.id = Date.now().toString(); 
-  
-  // La guardamos en nuestro arreglo
   vacantesPublicadas.push(nuevaVacante);
-
   console.log("Nueva vacante recibida y guardada:", nuevaVacante.titulo);
-
   res.status(201).json({
     mensaje: 'Vacante publicada con éxito',
     vacante: nuevaVacante
   });
 });
 
-// 2. Ruta para ENVIAR todas las vacantes cuando el frontend las pida
 app.get('/api/vacantes', (req, res) => {
   res.json(vacantesPublicadas);
 });
 
-// 3. Ruta para CERRAR una vacante existente (HU 3)
 app.put('/api/vacantes/:id/cerrar', (req, res) => {
   const { id } = req.params;
-  
   const indice = vacantesPublicadas.findIndex(v => v.id === id);
 
   if (indice !== -1) {
@@ -176,14 +170,11 @@ app.put('/api/vacantes/:id/cerrar', (req, res) => {
 /* =========================
    GESTIÓN DE NOTIFICACIONES
 ========================= */
-// Para que tu pestaña de notificaciones funcione sin errores
+
 app.post('/api/notificaciones', (req, res) => {
   const nuevaNotificacion = req.body;
   nuevaNotificacion.id = Date.now().toString();
-  
-  // NUEVO: Le inyectamos la fecha y hora exacta del servidor en formato local
   nuevaNotificacion.fecha = new Date().toLocaleString('es-VE');
-
   notificacionesPublicadas.push(nuevaNotificacion);
   res.status(201).json(nuevaNotificacion);
 });
@@ -199,10 +190,16 @@ app.delete('/api/notificaciones/:id', (req, res) => {
 });
 
 /* =========================
+   INTEGRACIÓN DE RUTAS MODULARES
+========================= */
+
+app.use('/api', postulacionRoutes);
+
+/* =========================
    SERVIDOR 
 ========================= */
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);

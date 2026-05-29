@@ -20,7 +20,6 @@
   </nav>
 
   <main class="content" *ngIf="activeTab === 'ofertas'">
-    
     <div class="stats-grid">
       <div class="stat-card">
         <p>Ofertas Activas</p>
@@ -39,7 +38,6 @@
     <div class="gestion-vacantes-integracion" style="margin-top: 25px; width: 100%;">
       <app-ver-vacantes></app-ver-vacantes>
     </div>
-
   </main>
 
   <main class="content" *ngIf="activeTab === 'notificaciones'">
@@ -67,6 +65,40 @@
         <button class="btn-delete-aviso" (click)="eliminarNotificacion(aviso.id)">
           Eliminar aviso
         </button>
+      </div>
+    </div>
+  </main>
+
+  <main class="content" *ngIf="activeTab === 'aplicaciones'">
+    <div class="section-header-card">
+      <div class="section-info">
+        <h2>Aplicaciones Recibidas</h2>
+        <p>Revisa y gestiona los estudiantes que han aplicado a tus ofertas de pasantías.</p>
+      </div>
+    </div>
+
+    <div class="notificaciones-panel-lista">
+      <div class="empty-state">
+        <div class="empty-icon">👥</div>
+        <h3>Aún no hay aplicaciones para mostrar</h3>
+        <p>Cuando los estudiantes se postulen a tus vacantes activas, aparecerán en esta lista para que puedas revisar sus perfiles.</p>
+      </div>
+    </div>
+  </main>
+
+  <main class="content" *ngIf="activeTab === 'configuracion'">
+    <div class="section-header-card">
+      <div class="section-info">
+        <h2>Configuración de la Empresa</h2>
+        <p>Administra los datos y preferencias de tu perfil corporativo.</p>
+      </div>
+    </div>
+
+    <div class="notificaciones-panel-lista">
+      <div class="empty-state">
+        <div class="empty-icon">⚙️</div>
+        <h3>Sección en construcción</h3>
+        <p>Próximamente podrás editar la información de tu empresa, cambiar tu contraseña y ajustar tus preferencias desde este panel.</p>
       </div>
     </div>
   </main>
