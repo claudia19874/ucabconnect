@@ -1,0 +1,136 @@
+<div class="vacantes-wrapper">
+  
+  <div class="dashboard-header-block">
+    <div class="header-text-group">
+      <h1>Mis Vacantes Publicadas</h1>
+      <p class="subtitle">Gestiona y monitorea los procesos de reclutamiento activos de tu organización</p>
+    </div>
+    <button class="btn-publicar-primary" (click)="navegarAPublicar()">
+      <span class="btn-icon">➕</span> Publicar Nueva Vacante
+    </button>
+  </div>
+
+  <div class="table-container-card">
+    <table class="vacantes-data-table">
+      <thead>
+        <tr>
+          <th>Título de la Oferta</th>
+          <th>Sector / Área</th>
+          <th>Modalidad y Duración</th>
+          <th>Compensación</th>
+          <th>Estado</th>
+          <th class="text-center">Acciones de Gestión</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vacante of listaVacantes" [className]="vacante.estado === 'Cerrada' ? 'row-state-closed' : ''">
+          <td>
+            <div class="vacancy-meta">
+              <span class="vacancy-main-title">{{ vacante.titulo }}</span>
+              <span class="vacancy-geo-tag">{{ vacante.ubicacion }}</span>
+            </div>
+          </td>
+          <td>
+            <span class="sector-tag">{{ vacante.sector }}</span>
+          </td>
+          <td>
+            <div class="schedule-meta">
+              <span class="modality-text">{{ vacante.modalidad }}</span>
+              <span class="duration-text">{{ vacante.duracion || 'No especificada' }}</span>
+            </div>
+          </td>
+          <td class="salary-highlight">{{ vacante.salario || 'A convenir' }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="vacante.estado === 'Activa' ? 'status-active' : 'status-closed'">
+              {{ vacante.estado }}
+            </span>
+          </td>
+          <td class="text-center">
+            <button 
+              *ngIf="vacante.estado === 'Activa'" 
+              class="btn-action-terminate" 
+              (click)="cerrarOferta(vacante)">
+                 Cerrar Convocatoria
+            </button>
+            <span *ngIf="vacante.estado === 'Cerrada'" class="archive-text">Clausurada</span>
+          </td>
+        </tr>
+        
+        <tr *ngIf="listaVacantes.length === 0">
+          <td colspan="6" class="empty-state-cell">
+            <div class="empty-state-content">
+              <span class="empty-icon">📁</span>
+              <h3>No hay vacantes registradas</h3>
+              <p>Tu empresa aún no ha publicado ofertas de pasantía en este período académico.</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal-overlay-backdrop" *ngIf="mostrarModal">
+  <div class="modal-surface-card">
+    <div class="modal-surface-header">
+      <h2>Publicar Oferta de Pasantía</h2>
+      <button class="btn-dismiss-x" (click)="cerrarModal()">×</button>
+    </div>
+    
+    <div class="modal-surface-body">
+      <form (ngSubmit)="publicarVacante()">
+        <div class="form-field-group">
+          <label>Título del Puesto *</label>
+          <input type="text" [(ngModel)]="nuevaVacante.titulo" name="titulo" placeholder="Ej: Pasante de Ingeniería de Datos" required>
+        </div>
+
+        <div class="form-field-row">
+          <div class="form-field-group flex-1">
+            <label>Sector de Interés *</label>
+            <input type="text" [(ngModel)]="nuevaVacante.sector" name="sector" placeholder="Ej: Telecomunicaciones" required>
+          </div>
+          <div class="form-field-group flex-1">
+            <label>Modalidad de Trabajo</label>
+            <select [(ngModel)]="nuevaVacante.modalidad" name="modalidad">
+              <option value="Presencial">Presencial</option>
+              <option value="Híbrido">Híbrido</option>
+              <option value="Remoto">Remoto</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field-row">
+          <div class="form-field-group flex-1">
+            <label>Duración Estimada</label>
+            <input type="text" [(ngModel)]="nuevaVacante.duracion" name="duracion" placeholder="Ej: 6 Meses Obligatorios">
+          </div>
+          <div class="form-field-group flex-1">
+            <label>Asignación Económica / Mensualidad</label>
+            <input type="text" [(ngModel)]="nuevaVacante.salario" name="salario" placeholder="Ej: $450 USD">
+          </div>
+        </div>
+
+        <div class="form-field-group">
+          <label>Ubicación de la Sede</label>
+          <input type="text" [(ngModel)]="nuevaVacante.ubicacion" name="ubicacion" disabled class="input-readonly">
+          <small class="field-restriction-text">Restricción del Brief: Solo se permiten pasantías localizadas en la sede de Caracas.</small>
+        </div>
+
+        <div class="form-field-group">
+          <label>Descripción detallada del perfil *</label>
+          <textarea rows="4" [(ngModel)]="nuevaVacante.descripcion" name="descripcion" placeholder="Indique las funciones del pasante y los entregables esperados..." required></textarea>
+        </div>
+
+        <div class="form-field-group">
+          <label>Competencias Técnicas Requeridas (Separar con comas)</label>
+          <input type="text" [(ngModel)]="nuevaVacante.requisitosInput" name="requisitosInput" placeholder="Ej: Node.js, REST APIs, Scrum, SQL Server">
+        </div>
+
+        <div class="modal-form-actions">
+          <button type="button" class="btn-secondary-cancel" (click)="cerrarModal()">Cancelar</button>
+          <button type="submit" class="btn-primary-commit">Publicar en el Portal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

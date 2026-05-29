@@ -12,22 +12,20 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  // Datos para controlar la vista del Login
   rolActivo: 'estudiante' | 'empresa' = 'estudiante';
   correo: string = '';
   contrasena: string = '';
 
   constructor(
-  private router: Router,
-  private http: HttpClient
-) {}
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
   cambiarRol(rol: 'estudiante' | 'empresa') {
     this.rolActivo = rol;
   }
 
   onLogin() {
-
     console.log(`Iniciando sesión como ${this.rolActivo}:`, { 
       correo: this.correo, 
       contrasena: this.contrasena 
@@ -42,35 +40,23 @@ export class LoginComponent {
       'http://localhost:3000/api/usuario/login',
       datosLogin
     ).subscribe({
-
       next: (res: any) => {
-
         console.log('Login exitoso:', res);
+        alert('¡Bienvenido al portal!');
 
-        alert(`¡Bienvenido al portal!`);
+        
+        localStorage.setItem('usuarioLogueado', JSON.stringify(res.usuario));
 
-        // Redirección según el rol
         if (this.rolActivo === 'estudiante') {
-
-          this.router.navigate(['/dashboard-estudiante']);
-
+          this.router.navigate(['/estudiante']);
         } else {
-
-          this.router.navigate(['/dashboard-empresa']);
-
+          this.router.navigate(['/empresa']);
         }
-
       },
-
       error: (err) => {
-
         console.error('Error login:', err);
-
         alert('Correo o contraseña incorrectos');
-
       }
-
     });
-
   }
 }

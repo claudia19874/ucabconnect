@@ -118,3 +118,66 @@
   color: #6B7280;
   margin: 0;
 }
+/* --- SECCIÓN DE GESTIÓN DE NOTIFICACIONES --- */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.notificaciones-panel-lista {
+  margin-top: 20px;
+}
+
+.empresa-aviso-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.aviso-contenido {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.aviso-titulo-texto {
+  margin: 0 0 6px 0;
+  color: #1F2937;
+  font-size: 1.15rem;
+}
+
+.aviso-cuerpo-texto {
+  margin: 0 0 12px 0;
+  color: #4B5563;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.aviso-fecha-texto {
+  color: #9CA3AF;
+  font-size: 0.8rem;
+}
+
+.btn-delete-aviso {
+  background: white;
+  color: #DC2626;
+  border: 1px solid #FCA5A5;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.btn-delete-aviso:hover {
+  background: #FEF2F2;
+  border-color: #DC2626;
+}

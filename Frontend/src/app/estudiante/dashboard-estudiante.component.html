@@ -220,6 +220,7 @@
   </div>
 
 </div>
+
   <div class="modal-overlay" *ngIf="showAvisosModal">
     <div class="modal-content avisos-modal">
       <div class="modal-header">
@@ -244,6 +245,7 @@
           <h3 class="aviso-title">{{ aviso.titulo }}</h3>
           <p class="aviso-message">{{ aviso.mensaje }}</p>
           <small class="aviso-meta">{{ aviso.fecha | date:'short' }} • Empresa: {{ aviso.empresaId }}</small>
+          <small class="aviso-meta">📅 {{ aviso.fecha | date:'short' }} • Empresa: {{ aviso.empresaId }}</small>
         </div>
       </div>
 

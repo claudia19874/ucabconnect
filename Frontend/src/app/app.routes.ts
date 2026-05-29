@@ -7,23 +7,23 @@ import { DashboardEmpresaComponent } from './empresa/dashboard-empresa.component
 
 export const routes: Routes = [
 
-  // Login inicial
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-
-  // Auth
+  // LOGIN
   { path: 'login', component: LoginComponent },
 
-  // Registro
-  { path: 'registro/estudiante', component: RegistroEstudianteComponent },
+  // REGISTROS
+  { path: 'registro-estudiante', component: RegistroEstudianteComponent },
 
-  { path: 'registro/empresa', component: RegistroEmpresaComponent },
+  { path: 'registro-empresa', component: RegistroEmpresaComponent },
 
-  // Dashboards
-  { path: 'dashboard-estudiante', component: DashboardEstudianteComponent },
+  // DASHBOARDS
+  { path: 'estudiante', component: DashboardEstudianteComponent },
 
-  { path: 'dashboard-empresa', component: DashboardEmpresaComponent },
+  { path: 'empresa', component: DashboardEmpresaComponent },
 
-  // Ruta inválida
-  { path: '**', redirectTo: 'login' }
+  // INICIO
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+
+  // CUALQUIER RUTA INVALIDA
+  { path: '**', redirectTo: '/login' }
 
 ];

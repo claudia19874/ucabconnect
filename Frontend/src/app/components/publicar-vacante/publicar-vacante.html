@@ -1,0 +1,61 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h2>Publicar Nueva Oferta</h2>
+    <button class="close-btn">X</button>
+  </div>
+
+  <form (ngSubmit)="publicarOferta()" #vacanteForm="ngForm">
+    
+    <div class="form-group full-width">
+      <label>Título de la pasantía</label>
+      <input type="text" name="titulo" [(ngModel)]="nuevaVacante.titulo" required placeholder="Ej: Desarrollador Full Stack">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group half-width">
+        <label>Ubicación</label>
+        <input type="text" name="ubicacion" [(ngModel)]="nuevaVacante.ubicacion" readonly class="readonly-input">
+      </div>
+      <div class="form-group half-width">
+        <label>Salario (USD)</label>
+        <input type="text" name="salario" [(ngModel)]="nuevaVacante.salario" required placeholder="Ej: $400 - $600 USD">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group half-width">
+        <label>Duración</label>
+        <input type="text" name="duracion" [(ngModel)]="nuevaVacante.duracion" required placeholder="Ej: 6 meses">
+      </div>
+      <div class="form-group half-width">
+        <label>Modalidad</label>
+        <select name="modalidad" [(ngModel)]="nuevaVacante.modalidad" required>
+          <option value="Presencial">Presencial</option>
+          <option value="Híbrido">Híbrido</option>
+          <option value="Remoto">Remoto</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group full-width">
+      <label>Sector / Industria</label>
+      <input type="text" name="sector" [(ngModel)]="nuevaVacante.sector" required placeholder="Ej: Tecnología">
+    </div>
+
+    <div class="form-group full-width">
+      <label>Descripción</label>
+      <textarea name="descripcion" [(ngModel)]="nuevaVacante.descripcion" required placeholder="Describe la pasantía y las responsabilidades..."></textarea>
+    </div>
+
+    <div class="form-group full-width">
+      <label>Requisitos (separados por comas)</label>
+      <input type="text" name="requisitosTexto" [(ngModel)]="requisitosTexto" required placeholder="Ej: React, Node.js, JavaScript, Git">
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary" [disabled]="!vacanteForm.valid">Publicar Oferta</button>
+      <button type="button" class="btn-secondary">Cancelar</button>
+    </div>
+
+  </form>
+</div>

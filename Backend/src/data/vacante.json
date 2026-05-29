@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1779760437469",
+    "titulo": "desarrollador web",
+    "ubicacion": "Caracas, Venezuela",
+    "salario": "$200-$500",
+    "duracion": "4 meses",
+    "modalidad": "Remoto",
+    "descripcion": "trabaja en polar",
+    "requisitos": [
+      "html"
+    ],
+    "sector": "Tecnología",
+    "estado": "Cerrada",
+    "fechaPublicacion": "2026-05-26T01:53:57.469Z"
+  },
+  {
+    "id": "1779760559343",
+    "titulo": "Gerente de sistema",
+    "ubicacion": "Caracas, Venezuela",
+    "salario": "9900",
+    "duracion": "1 año",
+    "modalidad": "Presencial",
+    "descripcion": "que loco brou",
+    "requisitos": [
+      "html"
+    ],
+    "sector": "Software",
+    "estado": "Cerrada",
+    "fechaPublicacion": "2026-05-26T01:55:59.343Z"
+  },
+  {
+    "id": "1779841098855",
+    "titulo": "Gerente de sistema",
+    "ubicacion": "Caracas, Venezuela",
+    "salario": "9900",
+    "duracion": "1 año",
+    "modalidad": "Presencial",
+    "descripcion": ",",
+    "requisitos": [
+      "html"
+    ],
+    "sector": "Software",
+    "estado": "Cerrada",
+    "fechaPublicacion": "2026-05-27T00:18:18.856Z"
+  },
+  {
+    "id": "1779841139991",
+    "titulo": "informatico",
+    "ubicacion": "Caracas, Venezuela",
+    "salario": "9900",
+    "duracion": "1 año",
+    "modalidad": "Presencial",
+    "descripcion": ".",
+    "requisitos": [
+      "html"
+    ],
+    "sector": "Software",
+    "estado": "Cerrada",
+    "fechaPublicacion": "2026-05-27T00:18:59.991Z"
+  },
+  {
+    "id": "1779841336369",
+    "titulo": "Pasante",
+    "ubicacion": "Caracas, Venezuela",
+    "salario": "90",
+    "duracion": "1 año",
+    "modalidad": "Presencial",
+    "descripcion": ".\n",
+    "requisitos": [
+      "html"
+    ],
+    "sector": "TI",
+    "estado": "Cerrada",
+    "fechaPublicacion": "2026-05-27T00:22:16.369Z"
+  },
+  {
+    "id": "1779842301108",
+    "titulo": "Pasante",
+    "ubicacion": "Caracas, Venezuela",
+    "salario": "90",
+    "duracion": "1 año",
+    "modalidad": "Presencial",
+    "descripcion": ".",
+    "requisitos": [
+      "html"
+    ],
+    "sector": "TI",
+    "estado": "Cerrada",
+    "fechaPublicacion": "2026-05-27T00:38:21.108Z"
+  },
+  {
+    "id": "1779843107450",
+    "titulo": "Pasante",
+    "ubicacion": "Caracas, Venezuela",
+    "salario": "90",
+    "duracion": "1 año",
+    "modalidad": "Presencial",
+    "descripcion": ".",
+    "requisitos": [
+      "html"
+    ],
+    "sector": "TI",
+    "estado": "Cerrada",
+    "fechaPublicacion": "2026-05-27T00:51:47.450Z"
+  },
+  {
+    "id": "1779844475159",
+    "titulo": "Pasante",
+    "ubicacion": "Caracas, Venezuela",
+    "salario": "90",
+    "duracion": "1 año",
+    "modalidad": "Presencial",
+    "descripcion": ",",
+    "requisitos": [
+      "html"
+    ],
+    "sector": "TI",
+    "estado": "Activa",
+    "fechaPublicacion": "2026-05-27T01:14:35.159Z"
+  }
+]

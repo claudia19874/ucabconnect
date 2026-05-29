@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.component.html', 
-  styleUrls: ['./app.css']
+  templateUrl: './app.html',
+  styleUrl: './app.css'
 })
 export class App {
-  title = 'frontend';
+  protected readonly title = signal('ucabconnect');
 }
