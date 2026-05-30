@@ -30,6 +30,21 @@
   ],
   "pasantias": [
     {
+      "titulo": "Pasante de proyectos e IA",
+      "ubicacion": "Chacao, Caracas",
+      "salario": "$200-$230",
+      "duracion": "3 meses",
+      "modalidad": "Híbrido",
+      "descripcion": "Buscamos estudiantes para trabajar en nuevos proyectos relacionados con Inteligencia Artificial!!",
+      "estado": "Activa",
+      "aplicantes": 0,
+      "comentarioPasantia": "",
+      "empresaId": "emp_1780136329715",
+      "id": "pas_4735",
+      "aplicado": false,
+      "empresa": "NetUno"
+    },
+    {
       "titulo": "Pasante Proyectos IA",
       "ubicacion": "Caracas, Chacao",
       "salario": "$100-$150",
@@ -41,21 +56,6 @@
       "comentarioPasantia": "",
       "empresaId": "emp_001",
       "id": "pas_2904",
-      "aplicado": false,
-      "empresa": "TechCorp"
-    },
-    {
-      "titulo": "Full Stack Developer",
-      "ubicacion": "Caracas, Chacao, Venezuela",
-      "salario": "$1200-$1300",
-      "duracion": "1 año",
-      "modalidad": "Híbrido",
-      "descripcion": "Buscamos estudiantes apasionados por el desarrollo y la programación, listos a adentrarse a nuevas experiencias.",
-      "estado": "Activa",
-      "aplicantes": 0,
-      "comentarioPasantia": "",
-      "empresaId": "emp_001",
-      "id": "pas_2934",
       "aplicado": false,
       "empresa": "TechCorp"
     }
@@ -72,11 +72,12 @@
   ],
   "notificaciones": [
     {
-      "id": "1780136529893",
-      "titulo": "Holaaaa, nuevas postulaciones abiertas!!!!",
-      "mensaje": "Corre a postularte!",
-      "fecha": "2026-05-30T10:22:09.893Z",
-      "empresaId": "emp_ucab_generica_001"
+      "id": "1780140253667",
+      "titulo": "Holaaaa, postulate!!!",
+      "mensaje": "Cupos para ser pasante de proyecto e IA!!",
+      "fecha": "2026-05-30T11:24:13.667Z",
+      "empresaId": "emp_1780136329715",
+      "empresaNombre": "NetUno"
     }
   ],
   "estudiantes": [

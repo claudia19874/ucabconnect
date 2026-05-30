@@ -74,7 +74,7 @@
         <div class="aviso-card" *ngFor="let aviso of notificaciones">
           <h3 class="aviso-title">{{ aviso.titulo }}</h3>
           <p class="aviso-message">{{ aviso.mensaje }}</p>
-          <small class="aviso-meta">{{ aviso.fecha | date:'short' }} • Empresa: {{ aviso.empresaId }}</small>
+          <small class="aviso-meta">{{ aviso.fecha | date:'short' }} • Empresa: {{ aviso.empresaNombre || aviso.empresaId }}</small>
         </div>
       </div>
 

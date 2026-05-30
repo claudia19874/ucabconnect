@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="header-actions">
-      <button class="btn-text">Cerrar sesión</button>
+      <button class="btn-text" (click)="cerrarSesion()">Cerrar sesión</button>
     </div>
   </header>
 
@@ -16,7 +16,7 @@
     <button [class.active]="activeTab === 'ofertas'" (click)="setTab('ofertas')">Mis Ofertas</button>
     <button [class.active]="activeTab === 'aplicaciones'" (click)="setTab('aplicaciones')">Lista de Postulantes</button>
     <button [class.active]="activeTab === 'notificaciones'" (click)="setTab('notificaciones')">Notificaciones</button>
-    <button [class.active]="activeTab === 'configuracion'" (click)="setTab('configuracion')">Configuración</button>
+    <button [class.active]="activeTab === 'perfil'" (click)="setTab('perfil')">Perfil</button>
   </nav>
 
   <main class="content" *ngIf="activeTab === 'ofertas'">
@@ -44,17 +44,20 @@
         <h3>No has publicado notificaciones</h3>
         <p>Las notificaciones que crees aparecerán aquí y serán visibles para todos los estudiantes en tiempo real.</p>
       </div>
-
       <div class="empresa-aviso-card" *ngFor="let aviso of notificaciones">
         <div class="aviso-contenido">
           <h3 class="aviso-titulo-texto">{{ aviso.titulo }}</h3>
           <p class="aviso-cuerpo-texto">{{ aviso.mensaje }}</p>
-          <small class="aviso-fecha-texto"> Publicado el: {{ aviso.fecha | date:'short' }}</small>
+          <small class="aviso-fecha-texto">Publicado el: {{ aviso.fecha | date:'short' }}</small>
         </div>
-        <button class="btn-delete-aviso" (click)="eliminarNotificacion(aviso.id)">
-          🗑 Eliminar aviso
-        </button>
+        <button class="btn-delete-aviso" (click)="eliminarNotificacion(aviso.id)">🗑 Eliminar aviso</button>
       </div>
+    </div>
+  </main>
+
+  <main class="content" *ngIf="activeTab === 'perfil'">
+    <div style="display: flex; justify-content: center; align-items: center; height: 400px;">
+      <p style="font-size: 1.2rem; color: #6b7280; font-weight: 500;">🚧 Trabajando en ello...</p>
     </div>
   </main>
 
@@ -64,24 +67,20 @@
         <h2>Crear Nueva Notificación</h2>
         <button class="btn-close" (click)="cerrarModalNotificacion()">✕</button>
       </div>
-
       <div class="info-alert">
         <strong>Información:</strong> Esta notificación será visible para todos los estudiantes en su bandeja de avisos.
       </div>
-
       <form class="notification-form">
         <div class="form-group">
           <label>Título de la notificación *</label>
           <input type="text" #tituloInput placeholder="Ej: Nuevas fechas para entrevistas">
           <small>Máximo 100 caracteres</small>
         </div>
-
         <div class="form-group">
           <label>Mensaje *</label>
           <textarea rows="4" #mensajeInput placeholder="Escribe el contenido de la notificación..."></textarea>
           <small>Máximo 500 caracteres</small>
         </div>
-
         <div class="form-actions">
           <button type="button" class="btn-primary full-width"
             (click)="publicarNotificacion(tituloInput.value, mensajeInput.value); tituloInput.value=''; mensajeInput.value=''">
