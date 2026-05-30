@@ -81,7 +81,7 @@ body{
 }
 
 .btn-text:hover{
-  color:#5B4CF5;
+  color:#0548f2;
 }
 
 /* =========================
@@ -113,7 +113,7 @@ body{
 }
 
 .nav-tabs button.active{
-  background:linear-gradient(90deg,#6D5DFC 0%,#5B4CF5 100%);
+  background:linear-gradient(90deg,#0548f2 0%,#0548f2 100%);
   color:white;
 }
 
@@ -148,7 +148,7 @@ body{
 
 .search-bar input:focus{
   outline:none;
-  border-color:#5B4CF5;
+  border-color:#0548f2;
 }
 
 .btn-filter{
@@ -188,7 +188,7 @@ body{
 }
 
 .company{
-  color:#5B4CF5;
+  color:#0548f2;
   font-weight:600;
   margin-bottom:14px;
 }
@@ -204,7 +204,7 @@ body{
 
 .badge-modality{
   background:#EEF2FF;
-  color:#5B4CF5;
+  color:#0548f2;
   padding:6px 12px;
   border-radius:999px;
   font-weight:600;
@@ -218,7 +218,7 @@ body{
 
 .btn-primary{
   border:none;
-  background:linear-gradient(90deg,#6D5DFC 0%,#5B4CF5 100%);
+  background:linear-gradient(90deg,#0548f2 0%,#0548f2 100%);
   color:white;
   height:46px;
   padding:0 20px;
@@ -274,7 +274,7 @@ body{
   width:100px;
   height:100px;
   border-radius:50%;
-  background:linear-gradient(180deg,#6D5DFC 0%,#5B4CF5 100%);
+  background:linear-gradient(180deg,#0548f2 0%,#0548f2 100%);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -340,7 +340,7 @@ body{
 
 .skill-pill{
   background:#EEF2FF;
-  color:#5B4CF5;
+  color:#0548f2;
   padding:10px 16px;
   border-radius:999px;
   font-size:0.9rem;
@@ -349,7 +349,7 @@ body{
 
 .edit-profile-btn{
   border:none;
-  background:linear-gradient(90deg,#6D5DFC 0%,#5B4CF5 100%);
+  background:linear-gradient(90deg,#0548f2 0%,#0548f2 100%);
   color:white;
   height:52px;
   padding:0 24px;
@@ -455,7 +455,7 @@ body{
   height:52px;
   border:none;
   border-radius:14px;
-  background:linear-gradient(90deg,#6D5DFC 0%,#5B4CF5 100%);
+  background:linear-gradient(90deg,#0548f2 0%,#0548f2 100%);
   color:white;
   font-size:1rem;
   font-weight:600;
