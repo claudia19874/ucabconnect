@@ -83,8 +83,9 @@
         </div>
         <div class="form-group">
           <label>Áreas de Interés / Preferencias</label>
-          <textarea [(ngModel)]="estudiante.intereses" name="interinterests" placeholder="Ej. Desarrollo Backend, UI/UX, Gestión de Proyectos" rows="2"></textarea>
+          <textarea [(ngModel)]="estudiante.intereses" name="intereses" placeholder="Ej. Desarrollo Backend, UI/UX, Gestión de Proyectos" rows="2"></textarea>
         </div>
+
       </fieldset>
 
       <button type="submit" class="btn-submit" [disabled]="!registroForm.form.valid">Registrarse</button>

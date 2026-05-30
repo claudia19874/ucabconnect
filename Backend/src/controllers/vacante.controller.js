@@ -3,24 +3,30 @@ const path = require('path');
 
 const vacantesFilePath = path.join(__dirname, '../data/vacante.json');
 
-// Función auxiliar blindada para leer el JSON de forma segura
 const leerArchivoJSON = () => {
     try {
         if (!fs.existsSync(vacantesFilePath)) {
-            return []; // Si el archivo no existe, devuelve lista vacía
+            const carpetaData = path.dirname(vacantesFilePath);
+            if (!fs.existsSync(carpetaData)) {
+                fs.mkdirSync(carpetaData, { recursive: true });
+            }
+            fs.writeFileSync(vacantesFilePath, JSON.stringify([]), 'utf-8');
+            return [];
         }
         const data = fs.readFileSync(vacantesFilePath, 'utf-8');
         if (!data.trim()) {
-            return []; // Si el archivo está en blanco, devuelve lista vacía
+            return [];
         }
         return JSON.parse(data);
     } catch (error) {
-        console.error('Error interno al parsear el JSON:', error);
-        return []; // En caso de cualquier corrupción, evita que el servidor colapse
+        return [];
     }
 };
 
-// HU 1: Obtener y ver todas las vacantes
+const escribirArchivoJSON = (data) => {
+    fs.writeFileSync(vacantesFilePath, JSON.stringify(data, null, 2), 'utf-8');
+};
+
 const obtenerVacantes = (req, res) => {
     try {
         const vacantes = leerArchivoJSON();
@@ -30,14 +36,12 @@ const obtenerVacantes = (req, res) => {
     }
 };
 
-// HU 2: Publicar Nueva Vacante
 const crearVacante = (req, res) => {
     try {
         const vacantes = leerArchivoJSON();
 
-        // Estructuración del nuevo objeto
         const nuevaVacante = {
-            id: Date.now().toString(), // Usamos Date.now() para generar un ID único infalible
+            id: Date.now().toString(),
             titulo: req.body.titulo,
             ubicacion: req.body.ubicacion,
             salario: req.body.salario,
@@ -51,18 +55,14 @@ const crearVacante = (req, res) => {
         };
 
         vacantes.push(nuevaVacante);
-
-        // Escritura en el archivo
-        fs.writeFileSync(vacantesFilePath, JSON.stringify(vacantes, null, 2), 'utf-8');
+        escribirArchivoJSON(vacantes);
 
         res.status(201).json({ message: 'Vacante publicada exitosamente.', vacante: nuevaVacante });
     } catch (error) {
-        console.error('Error crítico al guardar la vacante:', error);
         res.status(500).json({ message: 'Error interno del servidor al publicar la vacante.' });
     }
 };
 
-// HU 3: Cerrar Vacante
 const cerrarVacante = (req, res) => {
     try {
         const { id } = req.params;
@@ -75,8 +75,7 @@ const cerrarVacante = (req, res) => {
         }
 
         vacantes[indice].estado = 'Cerrada';
-
-        fs.writeFileSync(vacantesFilePath, JSON.stringify(vacantes, null, 2), 'utf-8');
+        escribirArchivoJSON(vacantes);
 
         res.status(200).json({ message: 'Vacante clausurada con éxito.', vacante: vacantes[indice] });
     } catch (error) {

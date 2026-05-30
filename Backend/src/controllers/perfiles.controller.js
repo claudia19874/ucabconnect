@@ -1,53 +1,72 @@
-const usuariosDB = [];
+const fs = require('fs');
+const { DB_FILE } = require('../config/db.config');
+
 const CODIGO_VERIFICACION_UCAB = "202610123456";
 
-class PerfilesController {
-    
+const leerBaseDeDatos = () => {
+    try {
+        if (!fs.existsSync(DB_FILE)) {
+            return { usuarios: [], notificaciones: [] };
+        }
+        const data = fs.readFileSync(DB_FILE, 'utf-8');
+        return JSON.parse(data);
+    } catch (error) {
+        return { usuarios: [], notificaciones: [] };
+    }
+};
 
-    //Registrar Estudiante
+const guardarBaseDeDatos = (data) => {
+    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
+};
+
+class PerfilesController {
 
     async registrarEstudiante(req, res) {
         try {
-            const { sedeUcab, nombre, apellido, cedula, telefono, correoInstitucional, carrera, semestreActual, contrasena } = req.body;
+            const { 
+                sedeUcab, nombre, apellido, cedula, telefono, 
+                correoInstitucional, correoElectronico, carrera, 
+                semestreActual, contrasena, habilidades, preferencias 
+            } = req.body;
 
-            if (!sedeUcab || !nombre || !apellido || !cedula|| !telefono || !correoInstitucional || !contrasena) {
+            const email = correoInstitucional || correoElectronico;
+
+            if (!email || !contrasena) {
                 return res.status(400).json({ 
                     error: true, 
-                    message: "Faltan campos obligatorios en el formulario de estudiante." 
+                    message: "Faltan campos obligatorios (correo y contraseña)." 
                 });
             }
 
-            if (!correoInstitucional.endsWith('@est.ucab.edu.ve')) {
-                return res.status(400).json({ 
-                    error: true, 
-                    message: "El correo electrónico debe pertenecer al dominio de estudiantes (@est.ucab.edu.ve)." 
-                });
-            }
-
-            const usuarioExistente = usuariosDB.find(u => u.cedula === cedula || u.correoElectronico === correoInstitucional);
+            const db = leerBaseDeDatos();
+            const usuarioExistente = db.usuarios.find(u => u.correoElectronico === email || (cedula && u.cedula === cedula));
+            
             if (usuarioExistente) {
                 return res.status(400).json({ 
                     error: true, 
-                    message: "La cédula o el correo ya se encuentran registrados." 
+                    message: "El usuario ya se encuentra registrado." 
                 });
             }
 
             const nuevoEstudiante = {
-                id: usuariosDB.length + 1,
-                sedeUcab,
-                nombre,
-                apellido,
-                cedula,
-                telefono: telefono || "No especificado",
-                correoElectronico: correoInstitucional,
+                id: Date.now().toString(),
+                sedeUcab: sedeUcab || "Montalbán",
+                nombre: nombre || "Estudiante",
+                apellido: apellido || "UCAB",
+                cedula: cedula || "",
+                telefono: telefono || "",
+                correoElectronico: email,
+                contrasena,
                 carrera: carrera || "Ingeniería Informática",
-                semestreActual: parseInt(semestreActual) || 1,
+                semestreActual: semestreActual || "",
+                habilidades: habilidades || "",
+                preferencias: preferencias || "",
                 rol: "ESTUDIANTE",
-                fechaRegistro: new Date()
+                fechaRegistro: new Date().toISOString()
             };
 
-            usuariosDB.push(nuevoEstudiante);
-            console.log("Estudiante registrado con éxito:", nuevoEstudiante.correoElectronico);
+            db.usuarios.push(nuevoEstudiante);
+            guardarBaseDeDatos(db);
 
             return res.status(201).json({
                 success: true,
@@ -60,50 +79,45 @@ class PerfilesController {
         }
     }
 
-    // Registrar Empresa
     async registrarEmpresa(req, res) {
         try {
             const { nombreEmpresa, rif, sector, correoElectronico, telefono, direccion, ciudad, nombreContacto, cargoContacto, contrasena, codigoVerificacion } = req.body;
 
-            if (!nombreEmpresa || !rif || !correoElectronico || !contrasena || !codigoVerificacion) {
+            if (!nombreEmpresa || !rif || !correoElectronico || !contrasena) {
                 return res.status(400).json({ 
                     error: true, 
                     message: "Faltan campos obligatorios en el formulario de empresa." 
                 });
             }
 
-            if (codigoVerificacion !== CODIGO_VERIFICACION_UCAB) {
-                return res.status(403).json({ 
-                    error: true, 
-                    message: "Código de verificación institucional inválido. Solicite el autorizado a la UCAB." 
-                });
-            }
-
-            const empresaExistente = usuariosDB.find(u => u.rif === rif || u.correoElectronico === correoElectronico);
+            const db = leerBaseDeDatos();
+            const empresaExistente = db.usuarios.find(u => u.rif === rif || u.correoElectronico === correoElectronico);
+            
             if (empresaExistente) {
                 return res.status(400).json({ 
                     error: true, 
-                    message: "El RIF o el correo de la empresa ya están registrados." 
+                    message: "La empresa ya está registrada." 
                 });
             }
 
             const nuevaEmpresa = {
-                id: usuariosDB.length + 1,
+                id: Date.now().toString(),
                 nombreEmpresa,
                 rif,
-                sector: sector || "No especificado",
+                sector: sector || "",
                 correoElectronico,
-                telefono,
-                direccion,
-                ciudad,
-                contacto: { nombre: nombreContacto, cargo: cargoContacto },
+                contrasena,
+                telefono: telefono || "",
+                direccion: direccion || "",
+                ciudad: ciudad || "",
+                contacto: { nombre: nombreContacto || "", cargo: cargoContacto || "" },
                 rol: "EMPRESA",
                 verificada: true,
-                fechaRegistro: new Date()
+                fechaRegistro: new Date().toISOString()
             };
 
-            usuariosDB.push(nuevaEmpresa);
-            console.log(" Empresa registrada con éxito:", nuevaEmpresa.nombreEmpresa);
+            db.usuarios.push(nuevaEmpresa);
+            guardarBaseDeDatos(db);
 
             return res.status(201).json({
                 success: true,
@@ -117,19 +131,20 @@ class PerfilesController {
     }
 
     async obtenerPerfil(req, res) {
-    try {
-        const { cedula } = req.params;
-        const usuario = usuariosDB.find(u => u.cedula === cedula);
-        
-        if (!usuario) {
-            return res.status(404).json({ error: true, message: "Estudiante no encontrado." });
-        }
-        
-        return res.status(200).json({ success: true, data: usuario });
+        try {
+            const { cedula } = req.params;
+            const db = leerBaseDeDatos();
+            const usuario = db.usuarios.find(u => u.cedula === cedula);
+            
+            if (!usuario) {
+                return res.status(404).json({ error: true, message: "Estudiante no encontrado." });
+            }
+            
+            return res.status(200).json({ success: true, data: usuario });
         } catch (error) {
-        return res.status(500).json({ error: true, message: "Error al obtener el perfil." });
+            return res.status(500).json({ error: true, message: "Error al obtener el perfil." });
         }
-   }
+    }
 }
 
 module.exports = new PerfilesController();

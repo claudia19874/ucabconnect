@@ -1,86 +1,37 @@
-/* =========================
-   USUARIO TEMPORAL
-========================= */
+const fs = require('fs');
+const { DB_FILE } = require('../config/db.config');
 
-let usuario = {
-  nombre: 'Sebastian Figueira',
-  correoInstitucional: 'sfigueira.24@est.ucab.edu.ve',
-  cedula: 'V-30514220',
-  carrera: 'Ingeniería Informática',
-  semestreActual: '4° Semestre',
-  sedeUcab: 'Montalbán (Caracas)',
-  telefono: '+58 412-1234567',
-  habilidades: [
-    'JavaScript',
-    'React',
-    'Node.js',
-    'Python',
-    'SQL',
-    'Git'
-  ],
-  intereses: [
-    'UX/UI',
-    'Backend',
-    'Base de Datos'
-  ]
+const leerBaseDeDatos = () => {
+    try {
+        if (!fs.existsSync(DB_FILE)) {
+            return { usuarios: [] };
+        }
+        const data = fs.readFileSync(DB_FILE, 'utf-8');
+        return JSON.parse(data);
+    } catch (error) {
+        return { usuarios: [] };
+    }
 };
-
-/* =========================
-   OBTENER USUARIO
-========================= */
-
-const obtenerUsuario = (req, res) => {
-
-  res.json(usuario);
-
-};
-
-/* =========================
-   ACTUALIZAR USUARIO
-========================= */
-
-const actualizarUsuario = (req, res) => {
-
-  // Reemplaza COMPLETAMENTE el usuario
-  usuario = req.body;
-
-  res.json({
-    mensaje: 'Usuario actualizado',
-    usuario
-  });
-
-};
-
-
-/* =========================
-   LOGIN
-========================= */
 
 const login = (req, res) => {
+    const { email, contrasena } = req.body;
+    const db = leerBaseDeDatos();
+    
+    const usuario = db.usuarios.find(u => u.correoElectronico === email && u.contrasena === contrasena);
 
-  const { email } = req.body;
-
-  // Simulación login
-
-  if (email === usuario.correoInstitucional){
-
-    res.json({
-      mensaje: 'Login exitoso',
-      usuario
-    });
-
-  } else {
-
-    res.status(401).json({
-      mensaje: 'Usuario no encontrado'
-    });
-
-  }
-
+    if (usuario) {
+        res.json({
+            mensaje: `Login ${usuario.rol.toLowerCase()} exitoso`,
+            rol: usuario.rol.toLowerCase(),
+            usuario: usuario
+        });
+    } else {
+        res.status(401).json({
+            mensaje: 'Credenciales incorrectas o usuario no encontrado'
+        });
+    }
 };
 
 module.exports = {
-  obtenerUsuario,
-  actualizarUsuario,
-  login
+    login
 };

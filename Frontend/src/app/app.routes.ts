@@ -13,8 +13,8 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
   // REGISTROS
-  { path: 'registro-estudiante', component: RegistroEstudianteComponent },
-  { path: 'registro-empresa', component: RegistroEmpresaComponent },
+  { path: 'registro/estudiante', component: RegistroEstudianteComponent },
+  { path: 'registro/empresa', component: RegistroEmpresaComponent },
 
   // DASHBOARDS
   { path: 'estudiante', component: DashboardEstudianteComponent },

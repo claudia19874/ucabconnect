@@ -1,0 +1,31 @@
+{
+  "usuarios": [
+    {
+      "id": "1780114830262",
+      "sedeUcab": "Montalbán",
+      "nombre": "Santiago",
+      "apellido": "Pacheco",
+      "cedula": "31460627",
+      "telefono": "",
+      "correoElectronico": "sapacheco.24@est.ucab.edu.ve",
+      "contrasena": "santiago123",
+      "carrera": "Ingeniería Informática",
+      "semestreActual": "5° Semestre",
+      "habilidades": "React, TypeScript, SQL Server, Express",
+      "preferencias": "Desarrollo Backend, Arquitectura de Software",
+      "rol": "ESTUDIANTE",
+      "fechaRegistro": "2026-05-30T04:20:30.262Z"
+    }
+  ],
+  "notificaciones": [
+    {
+      "id": "1780115526489",
+      "usuarioId": "1780114830262",
+      "titulo": "Postulación Recibida",
+      "mensaje": "Tu postulación para la vacante de Desarrollo Backend ha sido registrada con éxito.",
+      "tipo": "SUCCESS",
+      "leido": false,
+      "fecha": "2026-05-30T04:32:06.489Z"
+    }
+  ]
+}

@@ -1,63 +1,68 @@
-const NotificacionModel = require('../models/notificacion.model');
+const fs = require('fs');
+const { DB_FILE } = require('../config/db.config');
 
-// 1. GET - Obtener todas las notificaciones
-exports.getNotificaciones = (req, res) => {
+const leerBaseDeDatos = () => {
     try {
-        const notificaciones = NotificacionModel.obtenerTodas();
-        res.status(200).json(notificaciones);
-    } catch (error) {
-        res.status(500).json({ error: "Error al leer las notificaciones" });
-    }
-};
-
-// 2. POST - Crear notificación
-exports.crearNotificacion = (req, res) => {
-    try {
-        const { titulo, mensaje } = req.body;
-        if (!titulo || !mensaje) {
-            return res.status(400).json({ error: "El título y el mensaje son obligatorios" });
+        if (!fs.existsSync(DB_FILE)) {
+            return { usuarios: [], notificaciones: [] };
         }
-
-        const nuevaNotificacion = {
-            id: Date.now().toString(),
-            titulo,
-            mensaje,
-            fecha: new Date().toISOString(),
-            empresaId: "emp_ucab_generica_001"
-        };
-
-        NotificacionModel.guardar(nuevaNotificacion);
-        res.status(201).json({
-            mensaje: "Notificación publicada con éxito",
-            notificacion: nuevaNotificacion
-        });
+        const data = fs.readFileSync(DB_FILE, 'utf-8');
+        return JSON.parse(data);
     } catch (error) {
-        res.status(500).json({ error: "Error al guardar la notificación" });
+        return { usuarios: [], notificaciones: [] };
     }
 };
 
-// 3. DELETE - Eliminar una notificación por ID
-exports.eliminarNotificacion = (req, res) => {
-    try {
-        const { id } = req.params;
-        const eliminado = NotificacionModel.eliminarPorId(id);
-        
-        if (!eliminado) {
-            return res.status(404).json({ error: "La notificación no existe" });
+const guardarBaseDeDatos = (data) => {
+    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
+};
+
+class NotificacionController {
+
+    obtenerNotificaciones(req, res) {
+        try {
+            const db = leerBaseDeDatos();
+            res.status(200).json(db.notificaciones || []);
+        } catch (error) {
+            res.status(500).json({ message: "Error al obtener las notificaciones." });
         }
-
-        res.status(200).json({ mensaje: "Notificación eliminada con éxito" });
-    } catch (error) {
-        res.status(500).json({ error: "Error al eliminar la notificación" });
     }
-};
 
-// 4. DELETE - Limpiar toda la bandeja
-exports.limpiarBandeja = (req, res) => {
-    try {
-        NotificacionModel.vaciarBandeja();
-        res.status(200).json({ mensaje: "Bandeja vaciada con éxito" });
-    } catch (error) {
-        res.status(500).json({ error: "Error al vaciar la bandeja" });
+    crearNotificacion(req, res) {
+        try {
+            const { usuarioId, titulo, mensaje, tipo } = req.body;
+
+            if (!titulo || !mensaje) {
+                return res.status(400).json({ message: "El título y el mensaje son obligatorios." });
+            }
+
+            const db = leerBaseDeDatos();
+            
+            const nuevaNotificacion = {
+                id: Date.now().toString(),
+                usuarioId: usuarioId || "TODOS",
+                titulo,
+                mensaje,
+                tipo: tipo || "INFO",
+                leido: false,
+                fecha: new Date().toISOString()
+            };
+
+            if (!db.notificaciones) {
+                db.notificaciones = [];
+            }
+
+            db.notificaciones.push(nuevaNotificacion);
+            guardarBaseDeDatos(db);
+
+            res.status(201).json({
+                message: "Notificación creada con éxito.",
+                notificacion: nuevaNotificacion
+            });
+        } catch (error) {
+            res.status(500).json({ message: "Error interno al crear la notificación." });
+        }
     }
-};
+}
+
+module.exports = new NotificacionController();
