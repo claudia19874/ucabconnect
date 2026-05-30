@@ -11,7 +11,6 @@
 
     <div class="error-msg" *ngIf="errorMensaje">{{ errorMensaje }}</div>
 
-    <!-- Info Empresa -->
     <div class="section-title">Información de la Empresa</div>
 
     <div class="form-group full-width">
@@ -33,7 +32,6 @@
       </div>
     </div>
 
-    <!-- Info Contacto -->
     <div class="section-title">Información de Contacto</div>
 
     <div class="form-row">
@@ -60,7 +58,6 @@
       </select>
     </div>
 
-    <!-- Persona de Contacto -->
     <div class="section-title">Persona de Contacto</div>
 
     <div class="form-row">
@@ -74,7 +71,25 @@
       </div>
     </div>
 
-    <!-- Verificación -->
+    <div class="section-title">Seguridad</div>
+
+    <div class="form-group full-width">
+      <label>Contraseña *</label>
+      <div class="password-wrapper">
+        <input [type]="mostrarPassword ? 'text' : 'password'" #passwordInput placeholder="Crea una contraseña segura">
+        <button class="toggle-password" (click)="togglePassword()">{{ mostrarPassword ? '' : '' }}</button>
+      </div>
+      <small>Mínimo 8 caracteres</small>
+    </div>
+
+    <div class="form-group full-width">
+      <label>Confirmar contraseña *</label>
+      <div class="password-wrapper">
+        <input [type]="mostrarConfirmar ? 'text' : 'password'" #confirmarInput placeholder="Repite tu contraseña">
+        <button class="toggle-password" (click)="toggleConfirmar()">{{ mostrarConfirmar ? '' : '' }}</button>
+      </div>
+    </div>
+
     <div class="section-title">Verificación</div>
 
     <div class="form-group full-width">
@@ -89,7 +104,7 @@
         nombreInput.value, rifInput.value, sectorInput.value,
         correoInput.value, telefonoInput.value, direccionInput.value,
         ciudadInput.value, contactoNombreInput.value, contactoCargoInput.value,
-        codigoInput.value
+        codigoInput.value, passwordInput.value, confirmarInput.value
       )">Crear cuenta</button>
     </div>
 

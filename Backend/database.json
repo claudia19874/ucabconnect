@@ -11,9 +11,39 @@
       "nombre": "DataData",
       "correo": "contacto@datadata.com",
       "ofertasCerradas": 0
+    },
+    {
+      "id": "emp_1780136329715",
+      "nombre": "NetUno",
+      "rif": "134456789",
+      "sector": "Tecnología",
+      "correo": "net.uno@corp.ve",
+      "telefono": "02123345678",
+      "direccion": "La Urbina Calle 7, Edificio Insenica II, Planta Baja.",
+      "ciudad": "Caracas",
+      "contactoNombre": "Vanessa Rodriguez",
+      "contactoCargo": "RRHH Support Specialist",
+      "codigoAcceso": "14122005",
+      "password": "12345678",
+      "ofertasCerradas": 0
     }
   ],
   "pasantias": [
+    {
+      "titulo": "Pasante Proyectos IA",
+      "ubicacion": "Caracas, Chacao",
+      "salario": "$100-$150",
+      "duracion": "6 meses",
+      "modalidad": "Remoto",
+      "descripcion": "Buscamos estudiantes de ingeniería informática que este interesados en aprender y ganar experiencia en el área de proyectos IA.",
+      "estado": "Activa",
+      "aplicantes": 0,
+      "comentarioPasantia": "",
+      "empresaId": "emp_001",
+      "id": "pas_2904",
+      "aplicado": false,
+      "empresa": "TechCorp"
+    },
     {
       "titulo": "Full Stack Developer",
       "ubicacion": "Caracas, Chacao, Venezuela",
@@ -40,26 +70,15 @@
       "estado": "En revisión"
     }
   ],
-  "perfil": {
-    "id": "u001",
-    "nombre": "Juan",
-    "apellido": "Pérez",
-    "correo": "juan.perez@ucab.edu.ve",
-    "cedula": "V-12345678",
-    "carrera": "Ingeniería Informática",
-    "semestre": "8° Semestre",
-    "sede": "Montalbán (Caracas)",
-    "telefono": "+58 412-1234567",
-    "habilidades": [
-      "JavaScript",
-      "React",
-      "Node.js",
-      "Python",
-      "SQL",
-      "Git"
-    ]
-  },
-  "notificaciones": [],
+  "notificaciones": [
+    {
+      "id": "1780136529893",
+      "titulo": "Holaaaa, nuevas postulaciones abiertas!!!!",
+      "mensaje": "Corre a postularte!",
+      "fecha": "2026-05-30T10:22:09.893Z",
+      "empresaId": "emp_ucab_generica_001"
+    }
+  ],
   "estudiantes": [
     {
       "id": "est_1780134018857",

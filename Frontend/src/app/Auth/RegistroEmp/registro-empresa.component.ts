@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class RegistroEmpresaComponent {
   errorMensaje = '';
+  mostrarPassword = false;
+  mostrarConfirmar = false;
 
   sectores = [
     'Tecnología', 'Finanzas', 'Salud', 'Educación',
@@ -23,21 +25,37 @@ export class RegistroEmpresaComponent {
 
   constructor(private router: Router, private cdr: ChangeDetectorRef) {}
 
+  togglePassword() { this.mostrarPassword = !this.mostrarPassword; this.cdr.detectChanges(); }
+  toggleConfirmar() { this.mostrarConfirmar = !this.mostrarConfirmar; this.cdr.detectChanges(); }
+
   async registrar(
     nombre: string, rif: string, sector: string,
     correo: string, telefono: string, direccion: string,
     ciudad: string, contactoNombre: string, contactoCargo: string,
-    codigoAcceso: string
+    codigoAcceso: string, password: string, confirmar: string
   ) {
-    if (!nombre || !rif || !sector || !correo || !telefono || !direccion || !ciudad || !contactoNombre || !contactoCargo || !codigoAcceso) {
+    if (!nombre || !rif || !sector || !correo || !telefono || !direccion || !ciudad || !contactoNombre || !contactoCargo || !codigoAcceso || !password) {
       this.errorMensaje = 'Por favor completa todos los campos obligatorios.';
+      this.cdr.detectChanges();
+      return;
+    }
+
+    if (password.length < 8) {
+      this.errorMensaje = 'La contraseña debe tener mínimo 8 caracteres.';
+      this.cdr.detectChanges();
+      return;
+    }
+
+    if (password !== confirmar) {
+      this.errorMensaje = 'Las contraseñas no coinciden.';
       this.cdr.detectChanges();
       return;
     }
 
     const nuevaEmpresa = {
       nombre, rif, sector, correo, telefono,
-      direccion, ciudad, contactoNombre, contactoCargo, codigoAcceso
+      direccion, ciudad, contactoNombre, contactoCargo,
+      codigoAcceso, password
     };
 
     try {
