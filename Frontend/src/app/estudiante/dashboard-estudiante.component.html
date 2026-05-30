@@ -77,7 +77,9 @@
     <div class="profile-card">
       <div class="profile-header">
         <div class="avatar">
-          {{ usuario.nombre?.split(' ')[0]?.charAt(0) }}{{ usuario.nombre?.split(' ')[1]?.charAt(0) }}
+          <span *ngIf="usuario.nombre">
+            {{ usuario.nombre.charAt(0) | uppercase }}{{ usuario.apellido?.charAt(0) | uppercase }}
+          </span>
         </div>
         <div class="profile-info">
           <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
