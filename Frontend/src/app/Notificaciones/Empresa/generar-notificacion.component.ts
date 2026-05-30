@@ -1,15 +1,16 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { VacanteComponent } from '../../Vacantes/vacante';
 
 @Component({
   selector: 'app-generar-notificacion',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, VacanteComponent],
   templateUrl: './generar-notificacion.component.html',
   styleUrls: ['./generar-notificacion.component.css']
 })
 export class GenerarNotificacionComponent {
-  activeTab = 'notificaciones';
+  activeTab = 'ofertas';
 
   ofertasActivas: number = 0;
   totalAplicaciones: number = 0;
@@ -18,17 +19,35 @@ export class GenerarNotificacionComponent {
   showCrearNotificacionModal: boolean = false;
   notificacionesPublicadas: number = 0;
   notificaciones: any[] = [];
+  empresaId = 'emp_001';
 
   constructor(private cdr: ChangeDetectorRef) {
-    this.cargarNotificaciones();
+    this.cargarDatosEmpresa();
   }
 
   setTab(tab: string) {
     this.activeTab = tab;
     if (tab === 'notificaciones') {
       this.cargarNotificaciones();
+    } else if (tab === 'ofertas') {
+      this.cargarDatosEmpresa();
     }
     this.cdr.detectChanges();
+  }
+
+  async cargarDatosEmpresa() {
+    try {
+      const res = await fetch(`http://localhost:3000/api/vacantes/${this.empresaId}`);
+      if (res.ok) {
+        const vacantes = await res.json();
+        this.ofertasActivas = vacantes.length;
+        this.totalAplicaciones = vacantes.reduce((sum: number, current: any) => sum + (current.aplicantes || 0), 0);
+        this.ofertasCerradas = 1;
+        this.cdr.detectChanges();
+      }
+    } catch (error) {
+      console.error("Error al cargar datos de empresa:", error);
+    }
   }
 
   abrirModalNotificacion() {
@@ -68,27 +87,29 @@ export class GenerarNotificacionComponent {
       });
 
       if (respuesta.ok) {
-        alert("¡Notificación publicada con éxito!");
         this.cerrarModalNotificacion();
-        this.cargarNotificaciones();
+        await this.cargarNotificaciones();
       }
     } catch (error) {
       console.error("Error al publicar:", error);
     }
   }
 
-  async eliminarNotificacion(id: string) {
-    if (confirm("¿Estás seguro de que deseas eliminar esta notificación de forma permanente?")) {
-      try {
-        const respuesta = await fetch(`http://localhost:3000/api/notificaciones/${id}`, {
-          method: 'DELETE'
-        });
-        if (respuesta.ok) {
-          this.cargarNotificaciones();
+  eliminarNotificacion(id: string) {
+    // setTimeout evita el bug del doble clic causado por confirm() bloqueando el hilo de Angular
+    setTimeout(async () => {
+      if (confirm("¿Estás seguro de que deseas eliminar esta notificación?")) {
+        try {
+          const respuesta = await fetch(`http://localhost:3000/api/notificaciones/${id}`, {
+            method: 'DELETE'
+          });
+          if (respuesta.ok) {
+            await this.cargarNotificaciones();
+          }
+        } catch (error) {
+          console.error("Error al eliminar la notificación:", error);
         }
-      } catch (error) {
-        console.error("Error al eliminar la notificación:", error);
       }
-    }
+    }, 0);
   }
 }

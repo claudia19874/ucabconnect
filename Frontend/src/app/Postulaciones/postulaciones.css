@@ -1,0 +1,80 @@
+.applications-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  margin-top: 15px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.applications-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* Estilo para los títulos de las columnas (PASANTÍA, EMPRESA, etc.) */
+.applications-table th {
+  padding: 15px 20px;
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  font-size: 13px;
+  border-bottom: 2px solid #e9ecef;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Estilo para el contenido de las filas */
+.applications-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e9ecef;
+  color: #333333;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+/* Efecto al pasar el mouse por encima de la fila */
+.applications-table tbody tr:hover {
+  background-color: #f8faff;
+  transition: background-color 0.2s ease;
+}
+
+/* ==========================================
+   ESTILOS PARA LAS ETIQUETAS DE ESTADO 
+   ========================================== */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Color amarillo para "En revisión" */
+.status-review {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* Color verde para "Aceptado" */
+.status-accepted {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Color rojo para "Rechazado" */
+.status-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.text-center {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+}

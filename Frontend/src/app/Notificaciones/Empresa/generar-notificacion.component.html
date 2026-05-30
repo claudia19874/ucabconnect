@@ -14,25 +14,18 @@
 
   <nav class="nav-tabs">
     <button [class.active]="activeTab === 'ofertas'" (click)="setTab('ofertas')">Mis Ofertas</button>
-    <button [class.active]="activeTab === 'aplicaciones'" (click)="setTab('aplicaciones')">Aplicaciones</button>
+    <button [class.active]="activeTab === 'aplicaciones'" (click)="setTab('aplicaciones')">Lista de Postulantes</button>
     <button [class.active]="activeTab === 'notificaciones'" (click)="setTab('notificaciones')">Notificaciones</button>
     <button [class.active]="activeTab === 'configuracion'" (click)="setTab('configuracion')">Configuración</button>
   </nav>
 
   <main class="content" *ngIf="activeTab === 'ofertas'">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <p>Ofertas Activas</p>
-        <h3>{{ ofertasActivas }}</h3>
-      </div>
-      <div class="stat-card">
-        <p>Total Aplicaciones</p>
-        <h3>{{ totalAplicaciones }}</h3>
-      </div>
-      <div class="stat-card">
-        <p>Ofertas Cerradas</p>
-        <h3>{{ ofertasCerradas }}</h3>
-      </div>
+    <app-vacante></app-vacante>
+  </main>
+
+  <main class="content" *ngIf="activeTab === 'aplicaciones'">
+    <div style="display: flex; justify-content: center; align-items: center; height: 400px;">
+      <p style="font-size: 1.2rem; color: #6b7280; font-weight: 500;">🚧 Trabajando en ello...</p>
     </div>
   </main>
 
@@ -85,7 +78,7 @@
 
         <div class="form-group">
           <label>Mensaje *</label>
-          <textarea rows="6" #mensajeInput placeholder="Escribe el contenido de la notificación..."></textarea>
+          <textarea rows="4" #mensajeInput placeholder="Escribe el contenido de la notificación..."></textarea>
           <small>Máximo 500 caracteres</small>
         </div>
 

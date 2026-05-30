@@ -20,11 +20,6 @@
   </nav>
 
   <main class="content" *ngIf="activeTab === 'explorar'">
-    <div class="search-bar">
-      <input type="text" placeholder="Buscar pasantías por título o empresa...">
-      <button class="btn-filter">Filtros</button>
-    </div>
-
     <div class="job-list">
       <div class="job-card" *ngFor="let job of pasantias">
         <div class="job-header">
@@ -38,18 +33,28 @@
               <span class="badge-modality">{{ job.modalidad }}</span>
             </div>
           </div>
-          <button class="btn-primary" *ngIf="!job.aplicado">Aplicar</button>
+
+          <button class="btn-primary" *ngIf="!job.aplicado && job.estado !== 'Cerrada'" (click)="aplicar(job)">Aplicar</button>
           <button class="btn-success" *ngIf="job.aplicado">✓ Aplicado</button>
+          <span class="badge-closed" *ngIf="job.estado === 'Cerrada' && !job.aplicado">Cerrada</span>
         </div>
         <p class="job-desc">{{ job.descripcion }}</p>
       </div>
     </div>
   </main>
 
+  <main class="content" *ngIf="activeTab === 'aplicaciones'">
+    <app-postulaciones-estudiante></app-postulaciones-estudiante>
+  </main>
+
+  <main class="content" *ngIf="activeTab === 'perfil'">
+    <app-perfil-estudiante></app-perfil-estudiante>
+  </main>
+
   <div class="modal-overlay" *ngIf="showAvisosModal">
     <div class="modal-content avisos-modal">
       <div class="modal-header">
-        <h2> Notificaciones</h2>
+        <h2>Notificaciones</h2>
         <button class="btn-close" (click)="toggleAvisos()">✕</button>
       </div>
       

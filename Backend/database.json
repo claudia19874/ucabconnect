@@ -1,3 +1,63 @@
 {
+  "empresas": [
+    {
+      "id": "emp_001",
+      "nombre": "TechCorp",
+      "correo": "rrhh@techcorp.com",
+      "ofertasCerradas": 1
+    },
+    {
+      "id": "emp_002",
+      "nombre": "DataData",
+      "correo": "contacto@datadata.com",
+      "ofertasCerradas": 0
+    }
+  ],
+  "pasantias": [
+    {
+      "titulo": "Full Stack Developer",
+      "ubicacion": "Caracas, Chacao, Venezuela",
+      "salario": "$1200-$1300",
+      "duracion": "1 año",
+      "modalidad": "Híbrido",
+      "descripcion": "Buscamos estudiantes apasionados por el desarrollo y la programación, listos a adentrarse a nuevas experiencias.",
+      "estado": "Activa",
+      "aplicantes": 0,
+      "comentarioPasantia": "",
+      "empresaId": "emp_001",
+      "id": "pas_2934",
+      "aplicado": false,
+      "empresa": "TechCorp"
+    }
+  ],
+  "postulaciones": [
+    {
+      "id": "post_919",
+      "pasantiaId": "pas_001",
+      "pasantia": "Desarrollador Frontend Angular",
+      "empresa": "TechCorp",
+      "fecha": "30/5/2026",
+      "estado": "En revisión"
+    }
+  ],
+  "perfil": {
+    "id": "u001",
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "correo": "juan.perez@ucab.edu.ve",
+    "cedula": "V-12345678",
+    "carrera": "Ingeniería Informática",
+    "semestre": "8° Semestre",
+    "sede": "Montalbán (Caracas)",
+    "telefono": "+58 412-1234567",
+    "habilidades": [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "Python",
+      "SQL",
+      "Git"
+    ]
+  },
   "notificaciones": []
 }
