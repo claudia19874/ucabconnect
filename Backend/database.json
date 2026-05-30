@@ -26,9 +26,54 @@
       "codigoAcceso": "14122005",
       "password": "12345678",
       "ofertasCerradas": 0
+    },
+    {
+      "id": "emp_1780141575219",
+      "nombre": "Cantv",
+      "rif": "13456432",
+      "sector": "Energía",
+      "correo": "cantv@gob.ve",
+      "telefono": "02123456782",
+      "direccion": "Los dos caminos",
+      "ciudad": "Caracas",
+      "contactoNombre": "Jose Perez",
+      "contactoCargo": "RRHH ",
+      "codigoAcceso": "14122005",
+      "password": "12345678",
+      "ofertasCerradas": 0
+    },
+    {
+      "id": "emp_1780142059498",
+      "nombre": "Bankzilla",
+      "rif": "123456789",
+      "sector": "Tecnología",
+      "correo": "bankzilla@gmail.com",
+      "telefono": "02121990257",
+      "direccion": "Chacao",
+      "ciudad": "Caracas",
+      "contactoNombre": "Jose Rojas",
+      "contactoCargo": "RRHH",
+      "codigoAcceso": "202612345678",
+      "password": "12345678",
+      "ofertasCerradas": 0
     }
   ],
   "pasantias": [
+    {
+      "titulo": "Pasante SQL",
+      "ubicacion": "Chacao, Caracas",
+      "salario": "$100-$150",
+      "duracion": "3 meses",
+      "modalidad": "Híbrido",
+      "descripcion": "Hola postulate",
+      "estado": "Activa",
+      "aplicantes": 0,
+      "comentarioPasantia": "",
+      "empresaId": "emp_1780141575219",
+      "id": "pas_5338",
+      "aplicado": true,
+      "empresa": "Cantv"
+    },
     {
       "titulo": "Pasante de proyectos e IA",
       "ubicacion": "Chacao, Caracas",
@@ -62,10 +107,10 @@
   ],
   "postulaciones": [
     {
-      "id": "post_919",
-      "pasantiaId": "pas_001",
-      "pasantia": "Desarrollador Frontend Angular",
-      "empresa": "TechCorp",
+      "id": "post_835",
+      "pasantiaId": "pas_5338",
+      "pasantia": "Pasante SQL",
+      "empresa": "Cantv",
       "fecha": "30/5/2026",
       "estado": "En revisión"
     }
@@ -88,6 +133,19 @@
       "cedula": "28660344",
       "telefono": "04241478316",
       "correo": "lechavero.24@est.ucab.edu.ve",
+      "carrera": "Ingeniería Informática",
+      "semestre": "5° Semestre",
+      "sede": "Montalbán (Caracas)",
+      "password": "12345678",
+      "habilidades": []
+    },
+    {
+      "id": "est_1780141403455",
+      "nombre": "Claudia",
+      "apellido": "Rojas",
+      "cedula": "31540123",
+      "telefono": "04221990257",
+      "correo": "chrojas.24@est.ucab.edu.ve",
       "carrera": "Ingeniería Informática",
       "semestre": "5° Semestre",
       "sede": "Montalbán (Caracas)",

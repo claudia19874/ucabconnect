@@ -69,7 +69,7 @@ exports.registrarEmpresa = (req, res) => {
     const { correo, rif, codigoAcceso } = req.body;
 
     // Código de acceso fijo para demo — puedes cambiarlo
-    const CODIGO_VALIDO = '14122005';
+    const CODIGO_VALIDO = '202612345678';
     if (codigoAcceso !== CODIGO_VALIDO) {
         return res.status(400).json({ error: 'Código de acceso inválido.' });
     }
