@@ -1,0 +1,23 @@
+{
+  "estudiantes": [
+    {
+      "sedeUcab": "Caracas",
+      "nombre": "Sebastian",
+      "apellido": "Figueira",
+      "cedula": "V-30514220",
+      "telefono": "+58 412-5341221",
+      "correoInstitucional": "sfigueira.24@est.ucab.edu.ve",
+      "carrera": "Ingeniería Informatica",
+      "semestreActual": 4,
+      "contrasena": "12345678",
+      "habilidades": [
+        "Java",
+        "Angular"
+      ],
+      "intereses": [
+        "UI/UX"
+      ]
+    }
+  ],
+  "empresas": []
+}

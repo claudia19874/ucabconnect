@@ -6,7 +6,7 @@ const cors = require('cors');
 ========================= */
 
 const postulacionRoutes = require('./routes/PostulacionRoutes');
-
+const usuarioRoutes = require('./routes/usuario.routes');
 const app = express();
 
 app.use(cors());
@@ -78,40 +78,6 @@ app.get('/', (req, res) => {
 
 app.get('/api/usuario', (req, res) => {
   res.json(usuarioEstudiante);
-});
-
-/* =========================
-   LOGIN
-========================= */
-
-app.post('/api/usuario/login', (req, res) => {
-  const { email, contrasena } = req.body;
-
-  if (
-    email === usuarioEstudiante.correoInstitucional &&
-    contrasena === usuarioEstudiante.contrasena
-  ) {
-    return res.json({
-      mensaje: 'Login estudiante exitoso',
-      rol: 'estudiante',
-      usuario: usuarioEstudiante
-    });
-  }
-
-  if (
-    email === usuarioEmpresa.correo &&
-    contrasena === usuarioEmpresa.contrasena
-  ) {
-    return res.json({
-      mensaje: 'Login empresa exitoso',
-      rol: 'empresa',
-      usuario: usuarioEmpresa
-    });
-  }
-
-  res.status(401).json({
-    mensaje: 'Credenciales incorrectas'
-  });
 });
 
 /* =========================
@@ -194,6 +160,7 @@ app.delete('/api/notificaciones/:id', (req, res) => {
 ========================= */
 
 app.use('/api', postulacionRoutes);
+app.use('/api/usuario', usuarioRoutes);
 
 /* =========================
    SERVIDOR 
