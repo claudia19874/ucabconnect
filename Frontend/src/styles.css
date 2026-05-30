@@ -9,7 +9,6 @@ body {
   background-color: #F8F9FA;
   color: #333;
   /* Aquí aplicamos la restricción de NO responsive */
-  width: 1280px; /* Ancho fijo típico de monitores de escritorio */
   margin: 0 auto; /* Centra el contenido si la pantalla es muy grande */
   overflow-x: auto; /* Muestra barra de desplazamiento si la pantalla es menor a 1280px */
 }

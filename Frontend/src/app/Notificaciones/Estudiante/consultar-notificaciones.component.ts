@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { PostulacionesComponent } from '../../Postulaciones/postulaciones';
 import { PerfilComponent } from '../../Perfil/Estudiante/perfil';
 
@@ -16,10 +17,16 @@ export class ConsultarNotificacionesComponent implements OnInit {
   showAvisosModal: boolean = false;
   notificaciones: any[] = [];
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private router: Router) {}
 
   ngOnInit() {
     this.cargarPasantias();
+  }
+
+  cerrarSesion() {
+    sessionStorage.removeItem('usuario');
+    sessionStorage.removeItem('tipo');
+    this.router.navigate(['/']);
   }
 
   async cargarPasantias() {

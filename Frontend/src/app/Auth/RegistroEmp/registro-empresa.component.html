@@ -1,0 +1,97 @@
+<div class="registro-page">
+  <div class="registro-header">
+    <img src="/logoucab.png" alt="Logo UCAB" class="login-logo">
+    <div>
+      <h1>Registro de Empresa</h1>
+      <p>Ofrece pasantías en UCAB Connect</p>
+    </div>
+  </div>
+
+  <div class="registro-card">
+
+    <div class="error-msg" *ngIf="errorMensaje">{{ errorMensaje }}</div>
+
+    <!-- Info Empresa -->
+    <div class="section-title">Información de la Empresa</div>
+
+    <div class="form-group full-width">
+      <label>Nombre de la empresa *</label>
+      <input type="text" #nombreInput placeholder="TechVenezuela C.A.">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>RIF *</label>
+        <input type="text" #rifInput placeholder="123456789">
+      </div>
+      <div class="form-group">
+        <label>Sector *</label>
+        <select #sectorInput>
+          <option value="">Selecciona un sector</option>
+          <option *ngFor="let s of sectores" [value]="s">{{ s }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Info Contacto -->
+    <div class="section-title">Información de Contacto</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Correo electrónico *</label>
+        <input type="email" #correoInput placeholder="contacto@empresa.com">
+      </div>
+      <div class="form-group">
+        <label>Teléfono *</label>
+        <input type="text" #telefonoInput placeholder="02121234567">
+      </div>
+    </div>
+
+    <div class="form-group full-width">
+      <label>Dirección *</label>
+      <input type="text" #direccionInput placeholder="Av. Francisco de Miranda, Torre Empresarial, Piso 10">
+    </div>
+
+    <div class="form-group full-width">
+      <label>Ciudad *</label>
+      <select #ciudadInput>
+        <option value="">Selecciona una ciudad</option>
+        <option *ngFor="let c of ciudades" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <!-- Persona de Contacto -->
+    <div class="section-title">Persona de Contacto</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nombre completo *</label>
+        <input type="text" #contactoNombreInput placeholder="María González">
+      </div>
+      <div class="form-group">
+        <label>Cargo *</label>
+        <input type="text" #contactoCargoInput placeholder="Gerente de Recursos Humanos">
+      </div>
+    </div>
+
+    <!-- Verificación -->
+    <div class="section-title">Verificación</div>
+
+    <div class="form-group full-width">
+      <label>Código de Acceso *</label>
+      <input type="text" #codigoInput placeholder="Ingresa el código proporcionado por la UCAB">
+      <small>El código de acceso es proporcionado por la Universidad Católica Andrés Bello</small>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+      <button class="btn-crear" (click)="registrar(
+        nombreInput.value, rifInput.value, sectorInput.value,
+        correoInput.value, telefonoInput.value, direccionInput.value,
+        ciudadInput.value, contactoNombreInput.value, contactoCargoInput.value,
+        codigoInput.value
+      )">Crear cuenta</button>
+    </div>
+
+  </div>
+</div>

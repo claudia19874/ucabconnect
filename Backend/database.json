@@ -59,5 +59,20 @@
       "Git"
     ]
   },
-  "notificaciones": []
+  "notificaciones": [],
+  "estudiantes": [
+    {
+      "id": "est_1780134018857",
+      "nombre": "Luis",
+      "apellido": "Chavero",
+      "cedula": "28660344",
+      "telefono": "04241478316",
+      "correo": "lechavero.24@est.ucab.edu.ve",
+      "carrera": "Ingeniería Informática",
+      "semestre": "5° Semestre",
+      "sede": "Montalbán (Caracas)",
+      "password": "12345678",
+      "habilidades": []
+    }
+  ]
 }

@@ -1,0 +1,58 @@
+<div class="login-page">
+  <div class="login-header">
+    <img src="/logoucab.png" alt="Logo UCAB" class="login-logo">
+    <h1>UCAB Connect</h1>
+    <p>Portal de Pasantías - Ingeniería Informática</p>
+  </div>
+
+  <div class="login-card">
+    <div class="tipo-tabs">
+      <button [class.active]="tipoUsuario === 'estudiante'" (click)="setTipo('estudiante')">
+         Estudiante
+      </button>
+      <button [class.active]="tipoUsuario === 'empresa'" (click)="setTipo('empresa')">
+         Empresa
+      </button>
+    </div>
+
+    <div class="form-group">
+      <label>Correo electrónico</label>
+      <input
+        type="email"
+        #correoInput
+        [placeholder]="tipoUsuario === 'estudiante' ? 'correo@ucab.edu.ve' : 'contacto@empresa.com'">
+    </div>
+
+    <div class="form-group">
+      <label>Contraseña</label>
+      <div class="password-wrapper">
+        <input
+          [type]="mostrarPassword ? 'text' : 'password'"
+          #passwordInput
+          placeholder="Ingresa tu contraseña">
+        <button class="toggle-password" (click)="togglePassword()">
+          {{ mostrarPassword ? '' : '' }}
+        </button>
+      </div>
+    </div>
+
+    <p class="forgot-password">¿Olvidaste tu contraseña?</p>
+
+    <div class="error-msg" *ngIf="errorMensaje">{{ errorMensaje }}</div>
+
+    <button class="btn-login" (click)="iniciarSesion(correoInput.value, passwordInput.value)">
+      Iniciar sesión
+    </button>
+
+    <div class="divider">¿No tienes cuenta?</div>
+
+    <button class="btn-register" (click)="irARegistroEstudiante()">
+       Registrarme como estudiante
+    </button>
+    <button class="btn-register" (click)="irARegistroEmpresa()">
+       Registrarme como empresa
+    </button>
+  </div>
+
+  <p class="footer-text">Universidad Católica Andrés Bello – UCAB</p>
+</div>

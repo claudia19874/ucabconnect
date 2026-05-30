@@ -1,0 +1,117 @@
+<div class="registro-page">
+  <div class="registro-header">
+    <img src="/logoucab.png" alt="Logo UCAB" class="login-logo">
+    <div>
+      <h1>Registro de Estudiante</h1>
+      <p>Únete a UCAB Connect</p>
+    </div>
+  </div>
+
+  <div class="registro-card">
+
+    <div class="error-msg" *ngIf="errorMensaje">{{ errorMensaje }}</div>
+
+    <!-- Sede -->
+    <div class="form-section">
+      <label class="section-label">Sede UCAB *</label>
+      <div class="sede-tabs">
+        <button [class.active]="sede === 'Montalbán (Caracas)'" (click)="setSede('Montalbán (Caracas)')">
+          Montalbán (Caracas)
+        </button>
+        <button [class.active]="sede === 'Guayana'" (click)="setSede('Guayana')">
+          Guayana
+        </button>
+      </div>
+    </div>
+
+    <!-- Mensaje Guayana -->
+    <div class="guayana-msg" *ngIf="mensajeGuayana">
+      🚧 <strong>Próximamente</strong> — La sede Guayana estará disponible en una próxima actualización.
+    </div>
+
+    <!-- Formulario bloqueado si es Guayana -->
+    <div [class.bloqueado]="mensajeGuayana">
+
+      <!-- Info Personal -->
+      <div class="section-title">Información Personal</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre *</label>
+          <input type="text" #nombreInput placeholder="Juan" [disabled]="mensajeGuayana">
+        </div>
+        <div class="form-group">
+          <label>Apellido *</label>
+          <input type="text" #apellidoInput placeholder="Pérez" [disabled]="mensajeGuayana">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Cédula *</label>
+          <input type="text" #cedulaInput placeholder="12345678" [disabled]="mensajeGuayana">
+        </div>
+        <div class="form-group">
+          <label>Teléfono *</label>
+          <input type="text" #telefonoInput placeholder="04121234567" [disabled]="mensajeGuayana">
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label>Correo institucional UCAB *</label>
+        <input type="email" #correoInput placeholder="nombre.apellido@est.ucab.edu.ve" [disabled]="mensajeGuayana">
+        <small>Debe ser tu correo @est.ucab.edu.ve</small>
+      </div>
+
+      <!-- Info Académica -->
+      <div class="section-title">Información Académica</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Carrera *</label>
+          <select #carreraInput [disabled]="mensajeGuayana">
+            <option value="">Selecciona tu carrera</option>
+            <option *ngFor="let c of carreras" [value]="c">{{ c }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Semestre actual *</label>
+          <select #semestreInput [disabled]="mensajeGuayana">
+            <option value="">Selecciona tu semestre</option>
+            <option *ngFor="let s of semestres" [value]="s">{{ s }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Seguridad -->
+      <div class="section-title">Seguridad</div>
+
+      <div class="form-group full-width">
+        <label>Contraseña *</label>
+        <div class="password-wrapper">
+          <input [type]="mostrarPassword ? 'text' : 'password'" #passwordInput placeholder="Crea una contraseña segura" [disabled]="mensajeGuayana">
+          <button class="toggle-password" (click)="togglePassword()">{{ mostrarPassword ? '' : '' }}</button>
+        </div>
+        <small>Mínimo 8 caracteres</small>
+      </div>
+
+      <div class="form-group full-width">
+        <label>Confirmar contraseña *</label>
+        <div class="password-wrapper">
+          <input [type]="mostrarConfirmar ? 'text' : 'password'" #confirmarInput placeholder="Repite tu contraseña" [disabled]="mensajeGuayana">
+          <button class="toggle-password" (click)="toggleConfirmar()">{{ mostrarConfirmar ? '' : '' }}</button>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+        <button class="btn-crear" [disabled]="mensajeGuayana" (click)="registrar(
+          nombreInput.value, apellidoInput.value, cedulaInput.value,
+          telefonoInput.value, correoInput.value, carreraInput.value,
+          semestreInput.value, passwordInput.value, confirmarInput.value
+        )">Crear cuenta</button>
+      </div>
+
+    </div>
+  </div>
+</div>
