@@ -21,30 +21,42 @@ const guardarUsuarios = (datos) => {
 };
 
 /* =========================
-   REGISTRAR USUARIO
+   REGISTRAR USUARIO (BLINDADO)
 ========================= */
 const actualizarUsuario = (req, res) => {
     const nuevoUsuario = req.body;
     const usuarios = leerUsuarios();
 
-    // Verificamos si es empresa (las empresas suelen tener 'rif' o 'sector')
-    if (nuevoUsuario.rif || nuevoUsuario.sector) {
-        const existe = usuarios.empresas.find(e => e.correo === nuevoUsuario.correo);
+    // Mensaje para ver en la terminal qué envía tu frontend exactamente
+    console.log("👉 Datos recibidos en el backend:", nuevoUsuario);
+
+    // FILTRO: Detecta si es empresa por cualquiera de estos campos
+    const esEmpresa = nuevoUsuario.rif || 
+                      nuevoUsuario.sector || 
+                      nuevoUsuario.empresa || 
+                      nuevoUsuario.nombreEmpresa || 
+                      (nuevoUsuario.correo && !nuevoUsuario.correo.endsWith('@est.ucab.edu.ve'));
+
+    if (esEmpresa) {
+        const correoAEvaluar = nuevoUsuario.correo || nuevoUsuario.correoInstitucional;
+        const existe = usuarios.empresas.find(e => (e.correo === correoAEvaluar || e.correoInstitucional === correoAEvaluar));
+        
         if (existe) return res.status(400).json({ mensaje: 'El correo de la empresa ya está registrado' });
         
         usuarios.empresas.push(nuevoUsuario);
+        console.log("🏢 Empresa clasificada y guardada con éxito.");
     } else {
         // Es un estudiante
         const existe = usuarios.estudiantes.find(e => e.correoInstitucional === nuevoUsuario.correoInstitucional);
+        
         if (existe) return res.status(400).json({ mensaje: 'El correo institucional ya está registrado' });
         
         usuarios.estudiantes.push(nuevoUsuario);
+        console.log("🎓 Estudiante clasificado y guardado con éxito.");
     }
 
-    // Escribimos los cambios en el archivo JSON
+    // Guardar cambios en el JSON
     guardarUsuarios(usuarios);
-    
-    console.log(`Nuevo usuario registrado exitosamente.`);
     res.status(201).json({ mensaje: 'Usuario registrado exitosamente', usuario: nuevoUsuario });
 };
 
@@ -55,27 +67,16 @@ const login = (req, res) => {
     const { email, contrasena } = req.body;
     const usuarios = leerUsuarios();
 
-    // Buscar en la lista de estudiantes
     const estudiante = usuarios.estudiantes.find(e => e.correoInstitucional === email && e.contrasena === contrasena);
     if (estudiante) {
-        return res.json({
-            mensaje: 'Login estudiante exitoso',
-            rol: 'estudiante',
-            usuario: estudiante
-        });
+        return res.json({ mensaje: 'Login estudiante exitoso', rol: 'estudiante', usuario: estudiante });
     }
 
-    // Buscar en la lista de empresas
     const empresa = usuarios.empresas.find(e => e.correo === email && e.contrasena === contrasena);
     if (empresa) {
-        return res.json({
-            mensaje: 'Login empresa exitoso',
-            rol: 'empresa',
-            usuario: empresa
-        });
+        return res.json({ mensaje: 'Login empresa exitoso', rol: 'empresa', usuario: empresa });
     }
 
-    // Si no lo encuentra en ningún lado
     res.status(401).json({ mensaje: 'Credenciales incorrectas' });
 };
 

@@ -17,7 +17,34 @@
       "intereses": [
         "UI/UX"
       ]
+    },
+    {
+      "sedeUcab": "Caracas",
+      "nombre": "Valeria",
+      "apellido": "Medina",
+      "cedula": "V-32002022",
+      "telefono": "+58 412-5340000",
+      "correoInstitucional": "valmedi@est.ucab.edu.ve",
+      "carrera": "Ingeniería Informatica",
+      "semestreActual": 4,
+      "contrasena": "87654321",
+      "habilidades": [
+        "Java",
+        "SQL"
+      ],
+      "intereses": [
+        "Desarrollo Backend"
+      ]
     }
   ],
-  "empresas": []
+  "empresas": [
+    {
+      "empresa": "feef",
+      "rif": "J-93625342-0",
+      "sector": "Banca / Finanzas",
+      "correo": "feef@gmail.com",
+      "contrasena": "09876543",
+      "telefono": "0414-2038723"
+    }
+  ]
 }
